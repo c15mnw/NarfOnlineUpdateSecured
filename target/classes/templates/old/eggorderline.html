@@ -1,0 +1,185 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+
+
+<title>Egg Order Line Form</title>
+
+<style type="text/css">
+
+.wrapper{width:500px;margin-left:auto;margin-right:auto}
+label{padding-left:0 !important}
+
+</style>
+
+</head>
+<body>
+
+<div lang="en" th:include="fragments/header">&nbsp;</div>
+
+<div class="container">
+
+<div th:if="${param.message != null}" class="alert alert-info" th:text="${param.message[0]}">message</div>
+<div th:if="${param.error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+
+<!--  <div class="generic-container"> -->
+    <div class="well lead">Egg Order Line Form</div>
+    
+    <form method="POST" th:object="${eggorderline}" class="form-horizontal">
+    
+        <input th:if="${edit}" type="hidden" path="oid" id="oid"/>
+        
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="name"> Line</label>
+                <div class="col-md-7">
+                    <select th:field="*{Line}" >
+                        <option th:each="line : ${lines}" th:value="${line.oid}" th:text="${line.BreedAndLine}" > Line</option>
+                    </select>
+                    <div class="has-error">
+                        <errors path="name" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="requiredDate">Required Date</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="date" name="requiredDate" th:value="*{#dates.format(requiredDate,'dd/MM/yyyy')}" />
+                    <div class="has-error">
+                        <errors path="requiredDate" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="required">Required</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="required" th:value="*{required}" />
+                    <div class="has-error">
+                        <errors path="required" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if ="${super or admin or editor}">
+    	    <div>
+	            <div class="form-group col-md-12">
+            	    <label class="col-md-3 control-lable" for="suppliedDate">Supplied Date</label>
+        	        <div class="col-md-7">
+    	                <input class="form-control" type="date" name="suppliedDate" th:value="*{#dates.format(suppliedDate,'dd/MM/yyyy')}" />
+	                    <div class="has-error">
+                    	    <errors path="suppliedDate" class="help-inline"/>
+                	    </div>
+            	    </div>
+        	    </div>
+    	    </div>
+
+	        <div>
+            	<div class="form-group col-md-12">
+        	        <label class="col-md-3 control-lable" for="supplied">Supplied</label>
+    	            <div class="col-md-7">
+	                    <input class="form-control" type="text" name="supplied" th:value="*{supplied}" />
+                    	<div class="has-error">
+                	        <errors path="supplied" class="help-inline"/>
+            	        </div>
+        	        </div>
+    	        </div>
+	        </div>
+        </div>
+
+		<input th:if="${customer}" type="hidden" name="supplied" th:value="*{supplied}" />
+
+        <input th:if="${customer}" type="hidden" name="suppliedDate" th:value="*{suppliedDate}" />
+
+		<input th:if="${customer}" type="hidden" name="customer" th:value="${owner}" />
+
+		<input th:if="${customer}" type="hidden" name="editor" th:value="*{editor}" />
+
+		<input th:if="${customer}" type="hidden" name="supplier" th:value="*{supplier}" />
+
+		<input th:if="${customer}" type="hidden" name="customer" th:value="*{customer}" />
+
+		<input th:if="${super or admin or editor}" type="hidden" name="editor" th:value="*${owner}" />
+
+		<input th:if="${super or admin or editor}" type="hidden" name="supplier" th:value="*${owner}" />
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="EggOrderLineFertilised">Fertilised</label>
+                <div class="col-md-7">
+                    <select th:field="*{EggOrderLineFertilised}" >
+                        <option th:each="fertilised : ${fertiliseds}" th:value="${fertilised.oid}" th:text="${fertilised.name}" >Fertilised</option>
+                    </select>
+                    <div class="has-error">
+                        <errors path="EggOrderLineFertilised" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if ="${super or admin or editor}">
+          <div th:if="${edit}">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="EggOrderStatus">Status</label>
+                <div class="col-md-7">
+                    <select th:field="*{EggOrderStatus}" >
+                        <option th:each="status : ${statuss}" th:value="${status.oid}" th:text="${status.name}" >Status</option>
+                    </select>
+                    <div class="has-error">
+                        <errors path="EggOrderStatus" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          <div th:unless="${edit}">
+	        <input type="hidden" name="EggOrderStatus" th:value="${status}" />
+          </div>
+        </div>
+
+        <div th:if ="${customer}">
+	      <input type="hidden" name="EggOrderStatus" th:value="${status}" />
+        </div>
+
+        <div th:if ="${super or admin or editor}">
+          <div th:if="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> <a th:href="@{/eggorderlineslist}">CANCEL</a>
+            </div>
+          </div>
+        
+          <div th:unless="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="ADD" class="btn btn-primary btn-sm"/> <a th:href="@{/eggorderlineslist}">CANCEL</a>
+            </div>
+          </div>
+        </div>
+
+        <div th:if ="${customer}">
+          <div th:if="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/eggorderlineslist}">CANCEL</a>
+            </div>
+          </div>
+        
+          <div th:unless="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="ADD" class="btn btn-primary btn-sm"/> or <a th:href="@{/eggorderlineslist}">CANCEL</a>
+            </div>
+          </div>
+        </div>
+
+    </form>
+
+    </div>
+
+</body>
+
+</html>

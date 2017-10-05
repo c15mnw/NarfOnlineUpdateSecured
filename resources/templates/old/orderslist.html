@@ -1,0 +1,201 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+
+
+<title>Orders List</title>
+
+<style type="text/css">
+
+.wrapper{width:500px;margin-left:auto;margin-right:auto}
+label{padding-left:0 !important}
+
+</style>
+
+</head>
+<body>
+
+<div lang="en" th:include="fragments/header">&nbsp;</div>
+
+<div class="container">
+
+<div th:if="${message != null}" class="alert alert-info" th:text="${message}">message</div>
+<div th:if="${error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+
+<!--  <div class="generic-container"> -->
+    
+    <!-- Default panel contents -->
+    <div class="panel panel-default">
+
+        <div th:if="${ordersnew}">
+	        <div th:if="${customer}" class="panel-heading"><span class="lead">My NEW Orders</span></div>
+    	    <div th:if="${superBool or adminBool or editorBool}" class="panel-heading"><span class="lead">All NEW Orders</span></div>
+        </div>
+        <div th:if="${orderspending}">
+	        <div th:if="${customer}" class="panel-heading"><span class="lead">My PENDING Orders</span></div>
+    	    <div th:if="${superBool or adminBool or editorBool}" class="panel-heading"><span class="lead">All PENDING Orders</span></div>
+        </div>
+        <div th:if="${ordersclosed}">
+	        <div th:if="${customer}" class="panel-heading"><span class="lead">My CLOSED Orders</span></div>
+    	    <div th:if="${superBool or adminBool or editorBool}" class="panel-heading"><span class="lead">All CLOSED Orders</span></div>
+        </div>
+        <div th:if="${orderscancelled}">
+	        <div th:if="${customer}" class="panel-heading"><span class="lead">My CANCELLED Orders</span></div>
+    	    <div th:if="${superBool or adminBool or editorBool}" class="panel-heading"><span class="lead">All CANCELLED Orders</span></div>
+        </div>
+        <div th:if="${ordersall}">
+	        <div th:if="${customer}" class="panel-heading"><span class="lead">ALL My Orders</span></div>
+    	    <div th:if="${superBool or adminBool or editorBool}" class="panel-heading"><span class="lead">All Orders</span></div>
+        </div>
+    
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                	<th>Oid</th>
+                    <th>Date Submitted</th>
+                    <th>Status</th>
+                    <th>Type</th>
+                    <th>Number</th>
+                    <th>Line</th>
+
+			   	    <div th:if="${superBool or adminBool or editorBool}">
+                    	<th>Customer</th>
+                    	<th>Assigned To</th>
+                    	<th>Supplied By</th>
+			   	    </div>
+
+                    <div th:if="${customerBool}">
+	                    <!-- <th>Study Number</th> -->
+    	                <!-- <th>Cost Code</th> -->
+        	            <!-- <th>Comments</th> -->
+			   	    </div>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+         	    <div th:each="order : ${orders}">
+                <tr>
+                    <td th:text="${order.oid}"></td>
+                    <td th:text="${#dates.format(order.requiredDate, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${order.OrderStatus.name}"></td>
+                    <td th:text="${order.OrderType.name}"></td>
+
+			   	    <div th:if="${order.OrderType.name == 'Bird'}">
+	                    <td th:text="${order.birdRequired}"></td>
+	                    <td th:text="${order.birdLine.BreedAndLine}"></td>
+			   	    </div>
+
+			   	    <div th:if="${order.OrderType.name == 'Egg'}">
+	                    <td th:text="${order.eggRequired}"></td>
+	                    <td th:text="${order.eggLine.BreedAndLine}"></td>
+			   	    </div>
+
+			   	    <div th:if="${order.OrderType.name == 'Embryo'}">
+	                    <td th:text="${order.embryoRequired}"></td>
+	                    <td th:text="${order.embryoLine.BreedAndLine}"></td>
+			   	    </div>
+
+			   	    <div th:if="${superBool or adminBool or editorBool}">
+                    	<td th:text="${order.customerEmail}"></td>
+                    	<td th:text="${order.editorEmail}"></td>
+                    	<td th:text="${order.supplierEmail}"></td>
+			   	    </div>
+
+                    <div th:if="${customerBool}">
+	                    <!-- <td th:text="${order.study}"></td> -->
+    	                <!-- <td th:text="${order.code}"></td> -->
+                    	<!-- <td th:text="${order.customerComment}"></td> -->
+                    </div>
+
+                    <td><a th:href="@{/show-combined-order-__${order.oid}__}" class="btn btn-success custom-width">SHOW</a>
+
+                    <div th:if="${customerBool}">
+            	        <div th:if="${order.OrderType.name == 'Bird'}">
+        	                <a th:href="@{/edit-combined-bird-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
+    	                </div>
+            	        <div th:if="${order.OrderType.name == 'Egg'}">
+        	                <a th:href="@{/edit-combined-egg-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
+    	                </div>
+            	        <div th:if="${order.OrderType.name == 'Embryo'}">
+        	                <a th:href="@{/edit-combined-embryo-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
+    	                </div>
+                    </div>
+                    <div th:if="${editorBool}">
+            	        <div th:if="${order.OrderType.name == 'Bird'}">
+        	                <a th:href="@{/edit-combined-bird-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
+    	                </div>
+            	        <div th:if="${order.OrderType.name == 'Egg'}">
+        	                <a th:href="@{/edit-combined-egg-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
+    	                </div>
+            	        <div th:if="${order.OrderType.name == 'Embryo'}">
+        	                <a th:href="@{/edit-combined-embryo-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
+    	                </div>
+                    </div>
+                    <div th:if="${superBool or adminBool}">
+            	        <div th:if="${order.OrderType.name == 'Bird'}">
+        	                <a th:href="@{/edit-combined-bird-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
+    	                </div>
+            	        <div th:if="${order.OrderType.name == 'Egg'}">
+        	                <a th:href="@{/edit-combined-egg-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
+    	                </div>
+            	        <div th:if="${order.OrderType.name == 'Embryo'}">
+        	                <a th:href="@{/edit-combined-embryo-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
+    	                </div>
+                        <a th:href="@{/delete-order-__${order.oid}__}" class="btn btn-danger custom-width">DELETE</a>
+                    </div>
+                    
+                    </td>
+                </tr>
+            	</div>
+       	        <div th:if="${adminBool or superBool}">
+    	        	<tr>
+                	    <td></td>
+                	    <td></td>
+                    	<td></td>
+	                    <td></td>
+    	                <td></td>
+        	            <td></td>
+    	                <td></td>
+        	            <td></td>
+        	            <td></td>
+        	            <td><a th:href="@{/new-combined-bird-order}" class="btn btn-danger custom-width">ORDER BIRDS</a></td>
+            	    </tr>
+    	        	<tr>
+        	            <td></td>
+                	    <td></td>
+                	    <td></td>
+                    	<td></td>
+	                    <td></td>
+    	                <td></td>
+        	            <td></td>
+    	                <td></td>
+        	            <td></td>
+        	            <td><a th:href="@{/new-combined-egg-order}" class="btn btn-danger custom-width">ORDER EGGS</a></td>
+            	    </tr>
+    	        	<tr>
+        	            <td></td>
+                	    <td></td>
+                	    <td></td>
+                    	<td></td>
+	                    <td></td>
+    	                <td></td>
+        	            <td></td>
+    	                <td></td>
+        	            <td></td>
+        	            <td><a th:href="@{/new-combined-embryo-order}" class="btn btn-danger custom-width">ORDER EMBRYOS</a></td>
+            	    </tr>
+		        </div>
+            </tbody>
+        </table>
+    
+    </div>
+       
+
+<!--  </div> -->
+</div>
+    
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+
+
+<title>Order</title>
+
+<style type="text/css">
+
+.wrapper{width:500px;margin-left:auto;margin-right:auto}
+label{padding-left:0 !important}
+
+</style>
+
+</head>
+<body>
+
+<div lang="en" th:include="fragments/header">&nbsp;</div>
+
+<div class="container">
+
+<div th:if="${param.message != null}" class="alert alert-info" th:text="${param.message[0]}">message</div>
+<div th:if="${param.error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+
+<!--  <div class="generic-container"> -->
+    <div th:if ="${birdBool}">
+    	<div class="well lead">Bird Order</div>
+    </div>
+    <div th:if ="${eggBool}">
+    	<div class="well lead">Egg Order</div>
+    </div>
+    <div th:if ="${embryoBool}">
+    	<div class="well lead">Embryo Order</div>
+    </div>
+    
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Id</strong></p>
+                <p class="col-md-7" th:text="${order.oid}" />
+            </div>
+
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Status</strong></p>
+                <p class="col-md-7" th:text="${order.OrderStatus.name}" />
+            </div>
+
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Collection</strong></p>
+                <p class="col-md-7" th:text="${order.OrderCollection.name}" />
+            </div>
+
+        	<div th:if ="${superBool or adminBool or editorBool}">
+            	<div class="col-md-12">
+                <p class="col-md-3"><strong>Customer</strong></p>
+                <p class="col-md-7" th:text="${order.customerEmail}" />
+            	</div>
+            	<div class="col-md-12">
+                <p class="col-md-3"><strong>Organisation</strong></p>
+                <p class="col-md-7" th:text="${order.customerOrganisation}" />
+            	</div>
+            	<div class="col-md-12">
+                <p class="col-md-3"><strong>Assigned To</strong></p>
+                <p class="col-md-7" th:text="${order.editorEmail}" />
+            	</div>
+            	<div class="col-md-12">
+                <p class="col-md-3"><strong>Supplied By</strong></p>
+                <p class="col-md-7" th:text="${order.supplierEmail}" />
+            	</div>
+		    </div>
+
+	        <div th:if ="${customerBool}">
+    	    </div>
+
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Date Created</strong></p>
+                <p class="col-md-7" th:text="${#dates.format(order.createdDate, 'dd/MM/yyyy')}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Date Required</strong></p>
+                <p class="col-md-7" th:text="${#dates.format(order.requiredDate, 'dd/MM/yyyy')}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Date Supplied</strong></p>
+                <p class="col-md-7" th:text="${order.suppliedDate} ? ${#dates.format(order.suppliedDate, 'dd/MM/yyyy')}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Study</strong></p>
+                <p class="col-md-7" th:text="${order.study}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Cost Centre</strong></p>
+                <p class="col-md-7" th:text="${order.code}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Customer Comment</strong></p>
+                <p class="col-md-7" th:text="${order.customerComment}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Supplier Comment</strong></p>
+                <p class="col-md-7" th:text="${order.supplierComment}" />
+            </div>
+
+	        <div th:if ="${birdBool}">
+	        	<div class="col-md-12">
+    	            <p class="col-md-3"><strong>Number of Birds Required</strong></p>
+        	        <p class="col-md-7" th:text="${order.birdRequired}"/>
+            	</div>
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Number of Birds Supplied</strong></p>
+        	        <p class="col-md-7" th:text="${order.birdSupplied}"/>
+            	</div>
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Sex</strong></p>
+        	        <p class="col-md-7" th:text="${order.birdOrderLineSex.name}"/>
+            	</div>
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Age</strong></p>
+        	        <p class="col-md-7" th:text="${order.birdAge}"/>
+            	</div>
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Days, Months or Years</strong></p>
+        	        <p class="col-md-7" th:text="${order.birdOrderLineDateFormat.name}"/>
+            	</div>
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Line</strong></p>
+        	        <p class="col-md-7" th:text="${order.birdOrganism.name}"/>
+            	</div>
+    	    </div>
+
+	        <div th:if ="${eggBool}">
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Number of Eggs Required</strong></p>
+        	        <p class="col-md-7" th:text="${order.eggRequired}"/>
+            	</div>
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Number of Eggs Supplied</strong></p>
+        	        <p class="col-md-7" th:text="${order.eggSupplied}"/>
+            	</div>
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Fertilised?</strong></p>
+        	        <p class="col-md-7" th:text="${order.eggOrderLineFertilised.name}"/>
+            	</div>
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Line</strong></p>
+        	        <p class="col-md-7" th:text="${order.eggOrganism.name}"/>
+            	</div>
+    	    </div>
+
+	        <div th:if ="${embryoBool}">
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Number of Embryos Required</strong></p>
+        	        <p class="col-md-7" th:text="${order.embryoRequired}"/>
+            	</div>
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Number of Embryos Supplied</strong></p>
+        	        <p class="col-md-7" th:text="${order.embryoSupplied}"/>
+            	</div>
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Days Incubated?</strong></p>
+        	        <p class="col-md-7" th:text="${order.embryoOrderLineIncubation.name}"/>
+            	</div>
+	            <div class="col-md-12">
+    	            <p class="col-md-3"><strong>Line</strong></p>
+        	        <p class="col-md-7" th:text="${order.embryoOrganism.name}"/>
+            	</div>
+    	    </div>
+
+        	<div th:if ="${superBool or adminBool or editorBool}">
+            	<div class="col-md-12">
+                	<p class="col-md-3"><a th:href="@{/orders-list}">BACK</a></p>
+                	<p class="col-md-7"></p>
+            	</div>
+		    </div>
+
+	        <div th:if ="${customerBool}">
+            	<div class="col-md-12">
+                	<p class="col-md-3"><a th:href="@{/my-orders-list}">BACK</a></p>
+                	<p class="col-md-7"></p>
+            	</div>
+    	    </div>
+
+    </div>
+
+</body>
+
+</html>

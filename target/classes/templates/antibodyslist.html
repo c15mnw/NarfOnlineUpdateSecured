@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+
+<title>Antibodies List</title>
+
+</head>
+
+<style type="text/css">
+
+.wrapper{width:500px;margin-left:auto;margin-right:auto}
+label{padding-left:0 !important}
+
+</style>
+
+<body>
+
+<div lang="en" th:include="fragments/header">&nbsp;</div>
+
+<div class="container">
+
+<div th:if="${message != null}" class="alert alert-info" th:text="${message}">message</div>
+<div th:if="${error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+
+<!-- <div class="generic-container"> -->
+    
+    <!-- Default panel contents -->
+    <div class="panel panel-default">
+
+		<div class="panel-heading"><span class="lead">Antibodies</span></div>
+    
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Antigen</th>
+                    <th>Isotype</th>
+                    <th>Application</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+         	    <div th:each="antibody : ${antibodys}">
+                <tr>
+                    <td th:text="${antibody.name}"></td>
+                    <td th:text="${antibody.antigen}"></td>
+                    <td th:text="${antibody.isotype}"></td>
+                    <td th:text="${antibody.application}"></td>
+                    <td><a th:href="@{/show-antibody-__${antibody.oid}__}" class="btn btn-success custom-width">SHOW</a></td>
+                    <div th:if="${admin or super}">
+                        <td><a th:href="@{/edit-antibody-__${antibody.oid}__}" class="btn btn-danger custom-width">EDIT</a></td>
+                        <td><a th:href="@{/delete-antibody-__${antibody.oid}__}" class="btn btn-danger custom-width">DELETE</a></td>
+                    </div>
+                    <div th:unless="${admin or super}">
+                        <td></td>
+                        <td></td>
+                    </div>
+                </tr>
+            	</div>
+	            <div th:if="${admin or super}">
+    	        	<tr>
+        	            <td><a th:href="@{/new-antibody}" class="btn btn-danger custom-width">ADD</a></td>
+            	        <td></td>
+                	    <td></td>
+                    	<td></td>
+	                    <td></td>
+    	                <td></td>
+        	            <td></td>
+            	    </tr>
+		        </div>
+            </tbody>
+        </table>
+    
+    </div>
+       
+
+</div>
+    
+</body>
+
+</html>

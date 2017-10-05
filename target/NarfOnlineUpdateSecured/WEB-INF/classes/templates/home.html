@@ -1,0 +1,128 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+<title th:text="#{label.pages.home.title}">home</title>
+</head>
+
+<body>
+
+<div lang="en" th:include="fragments/header">&nbsp;</div>
+
+    <div class="container">
+    
+      <div th:if="${superBool}"><h1>THE SUPER USER</h1><br /><br />
+	    <a class="btn btn-default" th:href="@{/loggedUsers}" th:text="#{label.pages.users.message}">View logged in users</a>
+		<br />	    
+	    <a class="btn btn-default" th:href="@{/loggedUsersFromSessionRegistry}" th:text="#{label.pages.users.sessionregistry.message}">View logged in users</a>
+		<br />	    
+		<br />	    
+	    <a th:href="@{/users-list}" th:text="#{label.pages.users.userslist.message}">View List of Users</a>
+		<br />	    
+		<br />	    
+	    <a th:href="@{/antibodys-list}" th:text="#{label.pages.users.antibodyslist.message}">View List of Antibodies</a>
+		<br />	    
+	    <a th:href="@{/antibody-references-list}" th:text="#{label.pages.users.antibodyreferenceslist.message}">View List of Antibody References</a>
+		<br />	    
+	    <a th:href="@{/lines-list}" th:text="#{label.pages.users.lineslist.message}">View List of  Lines</a>
+		<br />	    
+	    <a th:href="@{/line-references-list}" th:text="#{label.pages.users.linereferenceslist.message}">View List of  Line References</a>
+		<br />	    
+	    <a th:href="@{/strains-list}" th:text="#{label.pages.users.strainslist.message}">View List of  Strains</a>
+		<br />	    
+	    <a th:href="@{/strain-references-list}" th:text="#{label.pages.users.strainreferenceslist.message}">View List of  Strain References</a>
+		<br />	    
+	    <a th:href="@{/strain-uses-list}" th:text="#{label.pages.users.strainuseslist.message}">View List of  Strain Uses</a>
+		<br />	    
+		<br />	    
+	    <a th:href="@{/orders-list}" th:text="#{label.pages.users.allorders-list.message}">View List of ALL Orders</a>
+		<br />	    
+	    <a th:href="@{/orders-list-new}" th:text="#{label.pages.users.allneworders-list.message}">View List of ALL NEW Orders</a>
+		<br />	    
+	    <a th:href="@{/orders-list-pending}" th:text="#{label.pages.users.allpendingorders-list.message}">View List of ALL PENDING Orders</a>
+		<br />	    
+	    <a th:href="@{/orders-list-closed}" th:text="#{label.pages.users.allclosedorders-list.message}">View List of ALL CLOSED Orders</a>
+		<br />	    
+	    <a th:href="@{/orders-list-cancelled}" th:text="#{label.pages.users.allcancelledorders-list.message}">View List of ALL CANCELLED Orders</a>
+		<br />	    
+		<br />	    
+      </div>
+      
+      <div th:if="${adminBool}"><h1>THE ADMINISTRATOR</h1><br /><br />
+	    <a th:href="@{/lineslist}" th:text="#{label.pages.users.lineslist.message}">View List of  Lines</a>
+		<br />	    
+	    <a th:href="@{/strainslist}" th:text="#{label.pages.users.strainslist.message}">View List of  Strains</a>
+		<br />	    
+		<br />	    
+	    <a th:href="@{/new-combined-bird-order}" th:text="#{label.pages.users.combined.bird.order.message}">Order Birds</a>
+		<br />	    
+	    <a th:href="@{/new-combined-egg-order}" th:text="#{label.pages.users.combined.egg.order.message}">Order Eggs</a>
+		<br />	    
+	    <a th:href="@{/new-combined-embryo-order}" th:text="#{label.pages.users.combined.embryo.order.message}">Order Embryos</a>
+		<br />	    
+		<br />	    
+	    <a th:href="@{/orders-list}" th:text="#{label.pages.users.allorders-list.message}">View List of ALL Orders</a>
+		<br />	    
+	    <a th:href="@{/orders-list-new}" th:text="#{label.pages.users.allneworders-list.message}">View List of ALL NEW Orders</a>
+		<br />	    
+	    <a th:href="@{/orders-list-pending}" th:text="#{label.pages.users.allpendingorders-list.message}">View List of ALL PENDING Orders</a>
+		<br />	    
+	    <a th:href="@{/orders-list-closed}" th:text="#{label.pages.users.allclosedorders-list.message}">View List of ALL CLOSED Orders</a>
+		<br />	    
+	    <a th:href="@{/orders-list-cancelled}" th:text="#{label.pages.users.allcancelledorders-list.message}">View List of ALL CANCELLED Orders</a>
+		<br />	    
+		<br />	    
+      </div>
+      
+      <div th:if="${editorBool}"><h1>THE SELLER</h1><br /><br />
+	    <a th:href="@{/lineslist}" th:text="#{label.pages.users.lineslist.message}">View List of  Lines</a>
+		<br />	    
+	    <a th:href="@{/strainslist}" th:text="#{label.pages.users.strainslist.message}">View List of  Strains</a>
+		<br />	    
+		<br />	    
+	    <a th:href="@{/orders-list}" th:text="#{label.pages.users.allorders-list.message}">View List of ALL Orders</a>
+		<br />	    
+	    <a th:href="@{/orders-list-new}" th:text="#{label.pages.users.allneworders-list.message}">View List of ALL NEW Orders</a>
+		<br />	    
+	    <a th:href="@{/orders-list-pending}" th:text="#{label.pages.users.allpendingorders-list.message}">View List of ALL PENDING Orders</a>
+		<br />	    
+	    <a th:href="@{/orders-list-closed}" th:text="#{label.pages.users.allclosedorders-list.message}">View List of ALL CLOSED Orders</a>
+		<br />	    
+	    <a th:href="@{/orders-list-cancelled}" th:text="#{label.pages.users.allcancelledorders-list.message}">View List of ALL CANCELLED Orders</a>
+		<br />	    
+		<br />	    
+      </div>
+      
+      <div th:if="${customerBool}"><h1>CUSTOMER</h1><br /><br />
+	    <a th:href="@{/new-selection-order}" th:text="#{label.pages.users.selection.any.order.message}">Order Birds, Eggs or Embryos</a>
+		<br />	    
+		<br />	    
+	    <a th:href="@{/new-combined-bird-order}" th:text="#{label.pages.users.combined.bird.order.message}">Order Birds</a>
+		<br />	    
+	    <a th:href="@{/new-combined-egg-order}" th:text="#{label.pages.users.combined.egg.order.message}">Order Eggs</a>
+		<br />	    
+	    <a th:href="@{/new-combined-embryo-order}" th:text="#{label.pages.users.combined.embryo.order.message}">Order Embryos</a>
+		<br />	    
+		<br />	    
+	    <a th:href="@{/my-orders-list}" th:text="#{label.pages.users.my-orders-list.message}">View List of ALL My Orders</a>
+		<br />	    
+	    <a th:href="@{/my-orders-list-new}" th:text="#{label.pages.users.myneworders-list.message}">View List of My NEW Orders</a>
+		<br />	    
+	    <a th:href="@{/my-orders-list-pending}" th:text="#{label.pages.users.mypendingorders-list.message}">View List of My PENDING Orders</a>
+		<br />	    
+	    <a th:href="@{/my-orders-list-closed}" th:text="#{label.pages.users.myclosedorders-list.message}">View List of My CLOSED Orders</a>
+		<br />	    
+	    <a th:href="@{/my-orders-list-cancelled}" th:text="#{label.pages.users.mycancelledorders-list.message}">View List of My CANCELLED Orders</a>
+		<br />	    
+		<br />	    
+      </div>
+      
+      <div th:if="${publicBool}"><h1>PUBLIC</h1><br /><br />
+      </div>
+      
+    </div>
+
+</body>
+
+</html>
+

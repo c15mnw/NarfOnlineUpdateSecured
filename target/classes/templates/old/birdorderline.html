@@ -1,0 +1,172 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+
+
+<title>Bird Order Line Form</title>
+
+<style type="text/css">
+
+.wrapper{width:500px;margin-left:auto;margin-right:auto}
+label{padding-left:0 !important}
+
+</style>
+
+</head>
+<body>
+
+<div lang="en" th:include="fragments/header">&nbsp;</div>
+
+<div class="container">
+
+<div th:if="${param.message != null}" class="alert alert-info" th:text="${param.message[0]}">message</div>
+<div th:if="${param.error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+
+<!--  <div class="generic-container"> -->
+    <div class="well lead">Bird Order Line Form</div>
+    
+    <form method="POST" th:object="${birdorderline}" class="form-horizontal">
+    
+        <input type="hidden" name="user" th:value="${owner}" />
+        
+        <input th:if="${edit}" type="hidden" path="oid" id="oid"/>
+        
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="name"> Line</label>
+                <div class="col-md-7">
+                    <select th:field="*{Line}" >
+                        <option th:each="line : ${lines}" th:value="${line.oid}" th:text="${line.BreedAndLine}" > Line</option>
+                    </select>
+                    <div class="has-error">
+                        <errors path="name" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="date">Required Date</label>
+                <div class="col-md-7">
+                
+                    <input class="form-control" type="date" name="date" th:value="*{#dates.format(date,'dd/MM/yyyy')}" />
+                    <div class="has-error">
+                        <errors path="date" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="age">Age</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="age" th:value="*{age}" />
+                    <div class="has-error">
+                        <errors path="age" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="BirdOrderLineDateFormat">Date Format</label>
+                <div class="col-md-7">
+                    <select th:field="*{BirdOrderLineDateFormat}" >
+                        <option th:each="dateformat : ${dateformats}" th:value="${dateformat.oid}" th:text="${dateformat.name}" >Date Format</option>
+                    </select>
+                    <div class="has-error">
+                        <errors path="BirdOrderLineDateFormat" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="required">Required</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="required" th:value="*{required}" />
+                    <div class="has-error">
+                        <errors path="required" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="BirdOrderLineSex">Sex</label>
+                <div class="col-md-7">
+                    <select th:field="*{BirdOrderLineSex}" >
+                        <option th:each="sex : ${sexs}" th:value="${sex.oid}" th:text="${sex.name}" >Sex</option>
+                    </select>
+                    <div class="has-error">
+                        <errors path="BirdOrderLineSex" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if ="${super or admin or editor}">
+          <div th:if="${edit}">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="BirdOrderStatus">Status</label>
+                <div class="col-md-7">
+                    <select th:field="*{BirdOrderStatus}" >
+                        <option th:each="status : ${statuss}" th:value="${status.oid}" th:text="${status.name}" >Status</option>
+                    </select>
+                    <div class="has-error">
+                        <errors path="BirdOrderStatus" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          <div th:unless="${edit}">
+	        <input type="hidden" name="BirdOrderStatus" th:value="${status}" />
+          </div>
+        </div>
+
+        <div th:if ="${customer}">
+	      <input type="hidden" name="BirdOrderStatus" th:value="${status}" />
+        </div>
+
+        <div th:if ="${super or admin or editor}">
+          <div th:if="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/birdorderlineslist}">CANCEL</a>
+            </div>
+          </div>
+        
+          <div th:unless="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="ADD" class="btn btn-primary btn-sm"/> or <a th:href="@{/birdorderlineslist}">CANCEL</a>
+            </div>
+          </div>
+        </div>
+
+        <div th:if ="${customer}">
+          <div th:if="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/birdorderlineslist}">CANCEL</a>
+            </div>
+          </div>
+        
+          <div th:unless="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="ADD" class="btn btn-primary btn-sm"/> or <a th:href="@{/birdorderlineslist}">CANCEL</a>
+            </div>
+          </div>
+        </div>
+
+    </form>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+
+
+<title> Strain</title>
+
+<style type="text/css">
+
+.wrapper{width:500px;margin-left:auto;margin-right:auto}
+label{padding-left:0 !important}
+
+</style>
+
+</head>
+<body>
+
+<div lang="en" th:include="fragments/header">&nbsp;</div>
+
+<div class="container">
+
+<div th:if="${param.message != null}" class="alert alert-info" th:text="${param.message[0]}">message</div>
+<div th:if="${param.error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+
+<!--  <div class="generic-container"> -->
+    <div class="well lead"> Strain</div>
+    
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Strain</strong></p>
+                <p class="col-md-7" th:text="${strain.strain}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Strain Long</strong></p>
+                <p class="col-md-7" th:text="${strain.strainLong}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Protein</strong></p>
+                <p class="col-md-7" th:text="${strain.protein}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Spectra</strong></p>
+                <p class="col-md-7" th:text="${strain.spectra}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Pattern</strong></p>
+                <p class="col-md-7" th:text="${strain.pattern}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Availability</strong></p>
+                <p class="col-md-7" th:text="${strain.availability}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Description</strong></p>
+                <p class="col-md-7" th:text="${strain.description}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Contact</strong></p>
+                <p class="col-md-7" th:text="${strain.contact}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Price</strong></p>
+                <p class="col-md-7" th:text="${strain.price}" />
+            </div>
+            <div class="col-md-12" th:each="reference,iter : ${strain.StrainReferences}">
+                <p class="col-md-3" th:if="${iter.index} == 0"><strong>References</strong></p>
+                <p class="col-md-3" th:unless="${iter.index} == 0"><strong></strong></p>
+                <p class="col-md-7" th:text="${reference.reference}" />
+            </div>
+            <div class="col-md-12" th:each="use,iter : ${strain.StrainUses}">
+                <p class="col-md-3" th:if="${iter.index} == 0"><strong>Uses</strong></p>
+                <p class="col-md-3" th:unless="${iter.index} == 0"><strong></strong></p>
+                <p class="col-md-7" th:text="${use.use}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><a th:href="@{/strainslist}">BACK</a></p>
+                <p class="col-md-7"></p>
+            </div>
+
+    </div>
+
+</body>
+
+</html>

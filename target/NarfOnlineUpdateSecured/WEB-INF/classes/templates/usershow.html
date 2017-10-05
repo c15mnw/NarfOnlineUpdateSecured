@@ -1,0 +1,71 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+
+
+<title>User</title>
+
+<style type="text/css">
+
+.wrapper{width:500px;margin-left:auto;margin-right:auto}
+label{padding-left:0 !important}
+
+</style>
+
+</head>
+<body>
+
+<div lang="en" th:include="fragments/header">&nbsp;</div>
+
+<div class="container">
+
+<div th:if="${param.message != null}" class="alert alert-info" th:text="${param.message[0]}">message</div>
+<div th:if="${param.error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+
+<!--  <div class="generic-container"> -->
+    <div class="well lead">User</div>
+    
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Id</strong></p>
+                <p class="col-md-7" th:text="${user.id}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>First Name</strong></p>
+                <p class="col-md-7" th:text="${user.firstName}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Last Name</strong></p>
+                <p class="col-md-7" th:text="${user.lastName}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Email</strong></p>
+                <p class="col-md-7" th:text="${user.email}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Organisation</strong></p>
+                <p class="col-md-7" th:text="${user.organisation}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Enabled?</strong></p>
+                <p class="col-md-7" th:text="${user.enabled}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Using 2FA?</strong></p>
+                <p class="col-md-7" th:text="${user.using2FA}" />
+            </div>
+            <div class="col-md-12" th:each="role,iter : ${user.roles}">
+                <p class="col-md-3" th:if="${iter.index} == 0"><strong>Roles</strong></p>
+                <p class="col-md-3" th:unless="${iter.index} == 0"><strong></strong></p>
+                <p class="col-md-7" th:text="${role.name}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><a th:href="@{/userslist}">BACK</a></p>
+                <p class="col-md-7"></p>
+            </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+
+
+<title>Egg Order Line</title>
+
+<style type="text/css">
+
+.wrapper{width:500px;margin-left:auto;margin-right:auto}
+label{padding-left:0 !important}
+
+</style>
+
+</head>
+<body>
+
+<div lang="en" th:include="fragments/header">&nbsp;</div>
+
+<div class="container">
+
+<div th:if="${param.message != null}" class="alert alert-info" th:text="${param.message[0]}">message</div>
+<div th:if="${param.error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+
+<!--  <div class="generic-container"> -->
+    <div class="well lead">Egg Order Line</div>
+    
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Id</strong></p>
+                <p class="col-md-7" th:text="${eggorderline.oid}" />
+            </div>
+
+        	<div th:if ="${super or admin or editor}">
+            	<div class="col-md-12">
+                <p class="col-md-3"><strong>Customer</strong></p>
+                <p class="col-md-7" th:text="${email}" />
+            	</div>
+		    </div>
+
+	        <div th:if ="${customer}">
+    	    </div>
+
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Status</strong></p>
+                <p class="col-md-7" th:text="${eggorderline.EggOrderStatus.name}" />
+            </div>
+
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Name</strong></p>
+                <p class="col-md-7" th:text="${eggorderline.Line.BreedAndLine}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Date Required</strong></p>
+                <p class="col-md-7" th:text="${#dates.format(eggorderline.date, 'dd/MM/yyyy')}" />
+            </div>
+            <div class="col-md-12">
+                <p class="col-md-3"><strong>Number Required</strong></p>
+                <p class="col-md-7" th:text="${eggorderline.required + ' ' + eggorderline.EggOrderLineFertilised.name}" />
+            </div>
+
+        	<div th:if ="${super or admin or editor}">
+	            <div class="col-md-12">
+                	<p class="col-md-3"><strong>Date Supplied</strong></p>
+            	    <p class="col-md-7" th:text="${#dates.format(eggorderline.date, 'dd/MM/yyyy')}" />
+        	    </div>
+    	        <div class="col-md-12">
+	                <p class="col-md-3"><strong>Number Supplied</strong></p>
+                	<p class="col-md-7" th:text="${eggorderline.supplied + ' ' + eggorderline.EggOrderLineFertilised.name}" />
+            	</div>
+		    </div>
+
+        	<div th:if ="${super or admin or editor}">
+            	<div class="col-md-12">
+                	<p class="col-md-3"><a th:href="@{/eggorderlineslist}">BACK</a></p>
+                	<p class="col-md-7"></p>
+            	</div>
+		    </div>
+
+	        <div th:if ="${customer}">
+            	<div class="col-md-12">
+                	<p class="col-md-3"><a th:href="@{/eggorderlineslist}">BACK</a></p>
+                	<p class="col-md-7"></p>
+            	</div>
+    	    </div>
+
+    </div>
+
+</body>
+
+</html>

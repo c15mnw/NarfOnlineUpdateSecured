@@ -1,0 +1,198 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+
+
+<title> Strain Form</title>
+
+<style type="text/css">
+
+.wrapper{width:500px;margin-left:auto;margin-right:auto}
+label{padding-left:0 !important}
+
+</style>
+
+</head>
+<body>
+
+<div lang="en" th:include="fragments/header">&nbsp;</div>
+
+<div class="container">
+
+<div th:if="${param.message != null}" class="alert alert-info" th:text="${param.message[0]}">message</div>
+<div th:if="${param.error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+
+<!--  <div class="generic-container"> -->
+    <div class="well lead"> Strain Form</div>
+    
+    <form method="POST" th:object="${strain}" class="form-horizontal">
+    
+        <input th:if="${edit}" type="hidden" path="oid" id="oid"/>
+        <input th:if="${edit}" class="form-control" type="hidden" name="strain" th:value="*{strain}" />
+        
+        <div th:if="${edit}">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="strain">Strain</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="strain" th:value="*{strain}" disabled="true" />
+                </div>
+            </div>
+        </div>
+        
+        <div th:unless="${edit}">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="strain">Strain</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="strain" th:value="*{strain}" />
+                    <div class="has-error">
+                        <errors path="strain" class="help-instrain"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="strainLong">Strain Long</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="strainLong" th:value="*{strainLong}" />
+                    <div class="has-error">
+                        <errors path="strainLong" class="help-instrain"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="protein">Protein</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="protein" th:value="*{protein}" />
+                    <div class="has-error">
+                        <errors path="protein" class="help-instrain"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="spectra">Spectra</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="spectra" th:value="*{spectra}" />
+                    <div class="has-error">
+                        <errors path="spectra" class="help-instrain"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="pattern">Pattern</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="pattern" th:value="*{pattern}" />
+                    <div class="has-error">
+                        <errors path="pattern" class="help-instrain"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="availability">Availability</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="availability" th:value="*{availability}" />
+                    <div class="has-error">
+                        <errors path="availability" class="help-instrain"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="contact">Contact</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="contact" th:value="*{contact}" />
+                    <div class="has-error">
+                        <errors path="contact" class="help-instrain"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="description">Description</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="description" th:value="*{description}" />
+                    <div class="has-error">
+                        <errors path="description" class="help-instrain"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="price">Price</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="price" th:value="*{price}" />
+                    <div class="has-error">
+                        <errors path="price" class="help-instrain"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="StrainReferences">References</label>
+                <div class="col-md-7">
+                    <select th:field="*{StrainReferences}" multiple="multiple" >
+                        <option th:each="reference : ${StrainReferences}" th:value="${reference.oid}" th:text="${reference.reference}" >Reference</option>
+                    </select>
+                    <div class="has-error">
+                        <errors path="StrainReferences" class="help-instrain"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="StrainUses">Uses</label>
+                <div class="col-md-7">
+                    <select th:field="*{StrainUses}" multiple="multiple" >
+                        <option th:each="use : ${StrainUses}" th:value="${use.oid}" th:text="${use.use}" >Reference</option>
+                    </select>
+                    <div class="has-error">
+                        <errors path="StrainUses" class="help-instrain"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div th:if="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/strainslist}">CANCEL</a>
+            </div>
+        </div>
+        
+        <div th:unless="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="ADD" class="btn btn-primary btn-sm"/> or <a th:href="@{/strainslist}">CANCEL</a>
+            </div>
+        </div>
+
+    </form>
+
+    </div>
+
+</body>
+
+</html>

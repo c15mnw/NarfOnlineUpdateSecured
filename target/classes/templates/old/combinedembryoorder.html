@@ -1,0 +1,252 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+
+
+<title>Embryo Order Form</title>
+
+<style type="text/css">
+
+.wrapper{width:500px;margin-left:auto;margin-right:auto}
+label{padding-left:0 !important}
+
+</style>
+
+</head>
+<body>
+
+<div lang="en" th:include="fragments/header">&nbsp;</div>
+
+<div class="container">
+
+<div th:if="${param.message != null}" class="alert alert-info" th:text="${param.message[0]}">message</div>
+<div th:if="${param.error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+
+<!--  <div class="generic-container"> -->
+    <div class="well lead">Embryo Order Form</div>
+    
+    <form method="POST" th:object="${dtoorder}" class="form-horizontal">
+    
+        <input type="hidden" name="user" th:value="${loggedinoid}" />
+        
+        <input th:if="${edit}" type="hidden" path="oid" id="oid"/>
+        
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="study">Study</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="study" th:value="*{study}" />
+                    <div class="has-error">
+                        <errors path="study" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="code">Code</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="code" th:value="*{code}" />
+                    <div class="has-error">
+                        <errors path="code" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<div class="form-group col-md-12">
+        	<label class="col-md-3 control-lable" for="orderCollection">Collection</label>
+	        <div class="col-md-7">
+    	       	<select th:field="*{orderCollection}" >
+        	       	<option th:each="collection : ${collections}" th:value="${collection.oid}" th:text="${collection.name}" >Collection</option>
+				</select>
+				<div class="has-error">
+                   	<errors path="orderCollection" class="help-inline"/>
+				</div>
+			</div>
+        </div>
+
+
+        <div th:if ="${editor}">
+        
+        	<input type="hidden" name="requiredDate" th:value="${requiredDate}" />
+
+        	<input type="hidden" name="required" th:value="${required}" />
+
+	        <div>
+    	        <div class="form-group col-md-12">
+        	        <label class="col-md-3 control-lable" for="suppliedDate">Date Supplied</label>
+            	    <div class="col-md-7">
+                	    <input class="form-control" type="date" name="suppliedDate" th:value="*{#dates.format(suppliedDate,'dd/MM/yyyy')}" />
+                    	<div class="has-error">
+                        	<errors path="suppliedDate" class="help-inline"/>
+                    	</div>
+	                </div>
+    	        </div>
+        	</div>
+
+	        <div>
+    	        <div class="form-group col-md-12">
+        	        <label class="col-md-3 control-lable" for="supplied">Supplied</label>
+            	    <div class="col-md-7">
+                	    <input class="form-control" type="text" name="supplied" th:value="*{supplied}" />
+                    	<div class="has-error">
+                        	<errors path="supplied" class="help-inline"/>
+	                    </div>
+    	            </div>
+        	    </div>
+        	</div>
+
+	        <div>
+    	        <div class="form-group col-md-12">
+        	        <label class="col-md-3 control-lable" for="supplierComment">Supplier Comment</label>
+            	    <div class="col-md-7">
+                	    <input class="form-control" type="text" name="supplierComment" th:value="*{supplierComment}" />
+                    	<div class="has-error">
+                        	<errors path="supplierComment" class="help-inline"/>
+	                    </div>
+    	            </div>
+        	    </div>
+        	</div>
+
+         	<div th:if="${edit}">
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="orderStatus">Status</label>
+	                <div class="col-md-7">
+    	                <select th:field="*{orderStatus}" >
+        	                <option th:each="status : ${statuss}" th:value="${status.oid}" th:text="${status.name}" >Status</option>
+            	        </select>
+                	    <div class="has-error">
+                    	    <errors path="orderStatus" class="help-inline"/>
+	                    </div>
+    	            </div>
+        		</div>
+        	</div>
+
+			<div th:unless="${edit}">
+	        	<input type="hidden" name="orderStatus" th:value="${status}" />
+			</div>
+        </div>
+
+        <div th:unless ="${editor}">
+        	<input type="hidden" name="suppliedDate" th:value="${suppliedDate}" />
+
+        	<input type="hidden" name="supplied" th:value="${supplied}" />
+
+	        <div>
+    	        <div class="form-group col-md-12">
+        	        <label class="col-md-3 control-lable" for="required">Embryos Required</label>
+            	    <div class="col-md-7">
+                	    <input class="form-control" type="text" name="required" th:value="*{required}" />
+	                    <div class="has-error">
+    	                    <errors path="required" class="help-inline"/>
+        	            </div>
+            	    </div>
+	            </div>
+    	    </div>
+
+	        <div>
+    	        <div class="form-group col-md-12">
+        	        <label class="col-md-3 control-lable" for="requiredDate">Date Required</label>
+            	    <div class="col-md-7">
+                	    <input class="form-control" type="date" name="requiredDate" th:value="*{#dates.format(requiredDate,'dd/MM/yyyy')}" />
+                    	<div class="has-error">
+	                        <errors path="requiredDate" class="help-inline"/>
+    	                </div>
+        	        </div>
+            	</div>
+	        </div>
+	
+	        <div>
+    	        <div class="form-group col-md-12">
+        	        <label class="col-md-3 control-lable" for="customerComment">Customer Comment</label>
+            	    <div class="col-md-7">
+                	    <input class="form-control" type="text" name="customerComment" th:value="*{customerComment}" />
+                    	<div class="has-error">
+	                        <errors path="customerComment" class="help-inline"/>
+    	                </div>
+        	        </div>
+            	</div>
+        	</div>
+
+			<input type="hidden" name="orderStatus" th:value="${status}" />
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="line">Embryos  Line</label>
+                <div class="col-md-7">
+                    <select th:field="*{line}" >
+                        <option th:each="embryoline : ${embryolines}" th:value="${embryoline.oid}" th:text="${embryoline.BreedAndLine}" >Embryos  Line</option>
+                    </select>
+                    <div class="has-error">
+                        <errors path="line" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="age">Embryos Age</label>
+                <div class="col-md-7">
+                    <input class="form-control" type="text" name="age" th:value="*{age}" />
+                    <div class="has-error">
+                        <errors path="age" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="orderLineIncubation">Embryos Incubation</label>
+                <div class="col-md-7">
+                    <select th:field="*{orderLineIncubation}" >
+                        <option th:each="incubation : ${incubations}" th:value="${incubation.oid}" th:text="${incubation.name}" >Embryos Incubation</option>
+                    </select>
+                    <div class="has-error">
+                        <errors path="orderLineIncubation" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div th:if ="${editor}">
+          <div th:if="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/my-orders-list}">BACK TO MINE</a> or <a th:href="@{/orders-list}">BACK TO ALL</a>
+            </div>
+          </div>
+        
+          <div th:unless="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="ADD" class="btn btn-primary btn-sm"/> or <a th:href="@{/my-orders-list}">BACK TO MINE</a> or <a th:href="@{/orders-list}">BACK TO ALL</a>
+            </div>
+          </div>
+        </div>
+
+        <div th:unless ="${editor}">
+          <div th:if="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/my-orders-list}">CANCEL</a>
+            </div>
+          </div>
+        
+          <div th:unless="${edit}">
+            <div class="form-actions floatRight">
+                <input type="submit" value="ADD" class="btn btn-primary btn-sm"/> or <a th:href="@{/my-orders-list}">CANCEL</a>
+            </div>
+          </div>
+        </div>
+
+    </form>
+
+    </div>
+
+</body>
+
+</html>

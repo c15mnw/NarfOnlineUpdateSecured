@@ -1,0 +1,92 @@
+<html>
+
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+
+
+<title>Bird Order Lines List</title>
+
+<style type="text/css">
+
+.wrapper{width:500px;margin-left:auto;margin-right:auto}
+label{padding-left:0 !important}
+
+</style>
+
+</head>
+<body>
+
+<div lang="en" th:include="fragments/header">&nbsp;</div>
+
+<div class="container">
+
+<div th:if="${message != null}" class="alert alert-info" th:text="${message}">message</div>
+<div th:if="${error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
+
+<!--  <div class="generic-container"> -->
+    
+    <!-- Default panel contents -->
+    <div class="panel panel-default">
+
+        <div th:if="${customer}" class="panel-heading"><span class="lead">My Bird Order Lines</span></div>
+        <div th:if="${super or admin or editor}" class="panel-heading"><span class="lead">All Bird Order Lines</span></div>
+    
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Oid</th>
+                    <th>Breed, Line</th>
+                    <th>Required By</th>
+                    <th>Age</th>
+                    <th>Number Required</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+         	    <div th:each="birdorderline : ${birdorderlines}">
+                <tr>
+                    <td th:text="${birdorderline.oid}"></td>
+                    <td th:text="${birdorderline.Line.breedAndLine}"></td>
+                    <td th:text="${#dates.format(birdorderline.date, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${birdorderline.age + ' ' + birdorderline.BirdOrderLineDateFormat.name}"></td>
+                    <td th:text="${birdorderline.required + ' ' + birdorderline.BirdOrderLineSex.name}"></td>
+                    <td th:text="${birdorderline.BirdOrderStatus.name}"></td>
+                    <td><a th:href="@{/show-birdorderline-__${birdorderline.oid}__}" class="btn btn-success custom-width">SHOW</a></td>
+                    <div th:if="${customer}">
+                        <td><a th:href="@{/edit-birdorderline-__${birdorderline.oid}__}" class="btn btn-danger custom-width">EDIT</a></td>
+                        <td></td>
+                    </div>
+                    <div th:if="${super or admin or editor}">
+                        <td><a th:href="@{/edit-birdorderline-__${birdorderline.oid}__}" class="btn btn-danger custom-width">EDIT</a></td>
+                        <td><a th:href="@{/delete-birdorderline-__${birdorderline.oid}__}" class="btn btn-danger custom-width">DELETE</a></td>
+                    </div>
+                </tr>
+            	</div>
+       	        <div th:if="${admin or super}">
+    	        	<tr>
+        	            <td><a th:href="@{/new-birdorderline}" class="btn btn-danger custom-width">ADD</a></td>
+                	    <td></td>
+                	    <td></td>
+                    	<td></td>
+	                    <td></td>
+    	                <td></td>
+        	            <td></td>
+    	                <td></td>
+        	            <td></td>
+            	    </tr>
+		        </div>
+            </tbody>
+        </table>
+    
+    </div>
+       
+
+<!--  </div> -->
+</div>
+    
+</body>
+
+</html>
