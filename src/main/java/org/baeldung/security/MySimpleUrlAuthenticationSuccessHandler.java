@@ -19,6 +19,8 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import main.java.org.baeldung.persistence.model.User;
+
 @Component("myAuthenticationSuccessHandler")
 public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 	
@@ -74,55 +76,69 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
     protected String determineTargetUrl(final Authentication authentication) {
     	
     	//System.out.println("determineTargetUrl");
-    	//System.out.println("authentication.toString()" + authentication.toString());
+    	//System.out.println("authentication.toString() : " + authentication.toString());
         
-        boolean isReader = false;
-        boolean isWriter = false;
+        boolean isSuper = false;
         boolean isAdmin = false;
-        boolean isGod = false;
+        boolean isEditor = false;
+        boolean isBuyer = false;
+        boolean isPublic = false;
+        
+        User user = (User) authentication.getPrincipal();
         
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         
         for (final GrantedAuthority grantedAuthority : authorities) {
         
+        	//System.out.println("grantedAuthority.getAuthority().toString() : " + grantedAuthority.getAuthority().toString());
+
         	if (grantedAuthority.getAuthority().equals("SUPER_PRIVILEGE")) {
 
-            	isGod = true;
+        		isSuper = true;
             }
         	if (grantedAuthority.getAuthority().equals("ADMIN_PRIVILEGE")) {
                 
             	isAdmin = true;
             }
+        	if (grantedAuthority.getAuthority().equals("EDITOR_PRIVILEGE")) {
+                
+        		isEditor = true;
+            }
         	if (grantedAuthority.getAuthority().equals("CUSTOMER_PRIVILEGE")) {
                 
-        		isWriter = true;
+        		isBuyer = true;
             }
         	if (grantedAuthority.getAuthority().equals("PUBLIC_PRIVILEGE")) {
             
-        		isReader = true;
+        		isPublic = true;
             } 
         }
         
-        if (isGod) {
+        if (isSuper) {
             
-        	return "/home.html";
-        	//return "/homepage.html?user=" + authentication.getName();
+        	//return "/home.html?user=" + authentication.getName();
+        	return "/home.html?user=" + user.getFirstAndLastName();
         	//return "/console.html";
         } 
         if (isAdmin) {
             
-        	return "/home.html";
-        	//return "/homepage.html?user=" + authentication.getName();
+        	//return "/home.html?user=" + authentication.getName();
+        	return "/home.html?user=" + user.getFirstAndLastName();
         } 
-        if (isWriter) {
+        if (isEditor) {
             
-        	return "/home.html";
-        	//return "/homepage.html?user=" + authentication.getName();
+        	//return "/home.html?user=" + authentication.getName();
+        	return "/home.html?user=" + user.getFirstAndLastName();
         } 
-        if (isReader) {
+        if (isBuyer) {
             
-        	return "/home.html";
-        	//return "/homepage.html?user=" + authentication.getName();
+        	//return "/home.html?user=" + authentication.getName();
+        	return "/home.html?user=" + user.getFirstAndLastName();
+        }
+        if (isPublic) {
+            
+        	//return "/home.html?user=" + authentication.getName();
+        	return "/home.html?user=" + user.getFirstAndLastName();
         }
         
     	return "/home.html";

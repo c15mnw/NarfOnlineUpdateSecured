@@ -36,12 +36,6 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @EnableWebSecurity
 public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    protected static final String SECURITY_LEVEL_5 = "SUPER_PRIVILEGE";
-    protected static final String SECURITY_LEVEL_4 = "ADMIN_PRIVILEGE";
-    protected static final String SECURITY_LEVEL_3 = "EDITOR_PRIVILEGE";
-    protected static final String SECURITY_LEVEL_2 = "CUSTOMER_PRIVILEGE";
-    protected static final String SECURITY_LEVEL_1 = "PUBLIC_PRIVILEGE";
-
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -58,17 +52,20 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomWebAuthenticationDetailsSource authenticationDetailsSource;
 
     public SecSecurityConfig() {
+    	
         super();
     }
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authProvider());
+        
+    	auth.authenticationProvider(authProvider());
     }
 
     @Override
     public void configure(final WebSecurity web) throws Exception {
-        web.ignoring()
+        
+    	web.ignoring()
             .antMatchers("/resources/**");
     }
 
@@ -97,7 +94,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/resources/**",
                         "/old/user/registration*",
                         "/successRegister*",
-                        "/qrcode*"
+                        "/qrcode*",
+    					"/home"
                         ).permitAll()
                 .antMatchers(
                 		"/invalidSession*"
@@ -108,74 +106,83 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 		"/updatePassword*"
                 		).hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
                 .antMatchers(
-					"/userslist",
-					"/show-user*",
-					"/edit-user*",
-					"/delete-user*"
-                		).hasAuthority(SECURITY_LEVEL_5)
+    					"/userslist",
+    					"/show-user*",
+    					"/edit-user*",
+    					"/delete-user*",
+    					"/show-line*",
+    					"/lines-list",
+    					"/show-strain*",
+    					"/strains-list",
+        				"/new-combined-order",
+        				"/new-selected-order",
+        				"/show-combined-order*",
+    					"/edit-combined-order*",
+    					"/delete-combined-order*",
+    					"/my-orders-list",
+    					"/my-orders-list-new",
+    					"/my-orders-list-pending",
+    					"/my-orders-list-closed",
+    					"/my-orders-list-cancelled",
+    					"/orders-list",
+    					"/orders-list-new",
+    					"/orders-list-pending",
+    					"/orders-list-closed",
+    					"/orders-list-cancelled"
+                		).hasAuthority("SUPER_PRIVILEGE")
                 .antMatchers(
-					"/antibodys-list",
-					"/new-antibody",
-					"/show-antibody*",
-					"/edit-antibody*",
-					"/delete-antibody*",
-					"/antibody-references-list",
-					"/new-antibody-reference",
-					"/show-antibody-reference*",
-					"/edit-antibody-reference*",
-					"/delete-antibody-reference*",
-					"/new-line",
-					"/edit-line*",
-					"/delete-line*",
-					"/new-line-reference",
-					"/edit-line-reference*",
-					"/delete-line-reference*",
-					"/new-strain",
-					"/edit-strain*",
-					"/delete-strain*",
-					"/new-strain-reference",
-					"/edit-strain-reference*",
-					"/delete-strain-reference*",
-					"/new-strain-use",
-					"/edit-strain-use*",
-					"/delete-strain-use*"
-                		).hasAuthority(SECURITY_LEVEL_4)
+    					"/show-line*",
+    					"/lines-list",
+    					"/show-strain*",
+    					"/strains-list",
+        				"/new-combined-order",
+        				"/new-selected-order",
+        				"/show-combined-order*",
+    					"/edit-combined-order*",
+    					"/delete-combined-order*",
+    					"/my-orders-list",
+    					"/my-orders-list-new",
+    					"/my-orders-list-pending",
+    					"/my-orders-list-closed",
+    					"/my-orders-list-cancelled",
+    					"/orders-list",
+    					"/orders-list-new",
+    					"/orders-list-pending",
+    					"/orders-list-closed",
+    					"/orders-list-cancelled"
+                		).hasAuthority("ADMIN_PRIVILEGE")
                 .antMatchers(
-					"/show-line-reference*",
-					"/line-references-list",
-					"/show-strain-reference*",
-					"/strain-references-list",
-					"/show-strain-use*",
-					"/strain-uses-list",
-					"/orders-list",
-					"/orders-list-new",
-					"/orders-list-pending",
-					"/orders-list-closed",
-					"/delete-combined-order*"
-                		).hasAuthority(SECURITY_LEVEL_3)
+        				"/new-combined-order",
+        				"/new-selected-order",
+        				"/show-combined-order*",
+    					"/edit-combined-order*",
+    					"/delete-combined-order*",
+    					"/my-orders-list",
+    					"/my-orders-list-new",
+    					"/my-orders-list-pending",
+    					"/my-orders-list-closed",
+    					"/my-orders-list-cancelled",
+    					"/orders-list",
+    					"/orders-list-new",
+    					"/orders-list-pending",
+    					"/orders-list-closed",
+    					"/orders-list-cancelled"
+                		).hasAuthority("EDITOR_PRIVILEGE")
                 .antMatchers(
-					"/show-line*",
-					"/lines-list",
-					"/show-strain*",
-					"/strains-list",
-					"/new-combined-order",
-					"/new-selected-order",
-					"/show-combined-order*",
-					"/my-orders-list",
-					"/my-orders-list-new",
-					"/my-orders-list-pending",
-					"/my-orders-list-closed",
-					"/edit-combined-order*",
-					"/edit-combined-order*"
-                		).hasAuthority(SECURITY_LEVEL_2)
-                .antMatchers(
-					"/",
-					"/home"
-                		).hasAuthority(SECURITY_LEVEL_1)
+    					"/new-combined-order",
+    					"/new-selected-order",
+    					"/show-combined-order*",
+    					"/edit-combined-order*",
+    					"/my-orders-list",
+    					"/my-orders-list-new",
+    					"/my-orders-list-pending",
+    					"/my-orders-list-closed",
+    					"/my-orders-list-cancelled"
+                		).hasAuthority("CUSTOMER_PRIVILEGE")
+                .anyRequest().hasAuthority("PUBLIC_PRIVILEGE")
                 .and()
             .formLogin()
                 .loginPage("/login")
-                //.defaultSuccessUrl("/homepage.html")
                 .defaultSuccessUrl("/home.html")
                 .failureUrl("/login?error=true")
                 .successHandler(myAuthenticationSuccessHandler)
@@ -197,24 +204,30 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     // @formatter:on
     }
 
+    
     // beans
 
     @Bean
     public DaoAuthenticationProvider authProvider() {
+    	
         final CustomAuthenticationProvider authProvider = new CustomAuthenticationProvider();
+        
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(encoder());
+        
         return authProvider;
     }
 
     @Bean
     public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder(11);
+        
+    	return new BCryptPasswordEncoder(11);
     }
 
     @Bean
     public SessionRegistry sessionRegistry() {
-        return new SessionRegistryImpl();
+    
+    	return new SessionRegistryImpl();
     }
 
 }

@@ -1,10 +1,10 @@
 <html>
 
 <head>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
 
-
-<title>Order UPDATE Success</title>
+<title th:text="#{label.pages.selection.order.update.success.title}">NARF Order Update Success</title>
 
 <style type="text/css">
 
@@ -14,18 +14,36 @@ label{padding-left:0 !important}
 </style>
 
 </head>
+
 <body>
 
 <div lang="en" th:include="fragments/header">&nbsp;</div>
 
 <div class="container">
 
+		<h2 th:text="#{label.pages.home.title}" /><br />    
+
 <div th:if="${message != null}" class="alert alert-info" th:text="${message}">message</div>
 <div th:if="${error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
 
         <div class="well lead">Order UPDATE Success</div>
-        	<a th:if="${customerBool}" th:href="@{/my-orders-list}">My Orders</a><br />
-        	<a th:if="${superBool or adminBool or editorBool}" th:href="@{/orders-list}">All Orders</a>
+        
+        	<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+	        	<a th:href="@{/my-orders-list}">My Orders</a><br />
+			</div>
+        
+			<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+	        	<a th:href="@{/orders-list}">All Orders</a>
+			</div>
+      
+			<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+	        	<a th:href="@{/orders-list}">All Orders</a>
+			</div>
+      
+			<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+	        	<a th:href="@{/orders-list}">All Orders</a>
+			</div>
+        
         </div>
     
 </body>

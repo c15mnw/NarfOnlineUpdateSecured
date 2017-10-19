@@ -1,13 +1,29 @@
 <html>
 <head>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-    <title th:text="#{label.pages.home.title}">home</title>
+
+<title th:text="#{label.pages.expired.account.title}">NARF Expired Account</title>
+
 </head>
+
 <body>
+
+<div lang="en" th:include="fragments/headercutdown">&nbsp;</div>
+
 <div class="container">
-<h1 class="alert alert-info" th:text="#{auth.message.expired}">expired</h1>
-<br/>
-<a class="btn btn-default" th:href="@{/registration.html}" th:text="#{label.form.loginSignUp}">signup</a>
+	
+	<h2 th:text="#{label.pages.home.title}" />
+	<br />    
+
+	<h1 class="alert alert-info" th:text="#{auth.message.expired}">expired</h1>
+	<br/>
+
+	<a class="btn btn-default" th:href="@{/registration.html}" th:text="#{label.form.loginSignUp}">signup</a>
+
 </div>
+
+<div lang="en" th:include="fragments/footer">&nbsp;</div>
+
 </body>
 </html>

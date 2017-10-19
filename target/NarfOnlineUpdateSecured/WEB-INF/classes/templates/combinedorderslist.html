@@ -1,10 +1,10 @@
 <html>
 
 <head>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
 
-
-<title>Orders List</title>
+<title th:text="#{label.pages.combined.order.list.title}">NARF Order List</title>
 
 <style type="text/css">
 
@@ -14,11 +14,14 @@ label{padding-left:0 !important}
 </style>
 
 </head>
+
 <body>
 
 <div lang="en" th:include="fragments/header">&nbsp;</div>
 
 <div class="container">
+
+		<h2 th:text="#{label.pages.home.title}" /><br />    
 
 <div th:if="${message != null}" class="alert alert-info" th:text="${message}">message</div>
 <div th:if="${error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
@@ -28,27 +31,184 @@ label{padding-left:0 !important}
     <!-- Default panel contents -->
     <div class="panel panel-default">
 
-        <div th:if="${ordersnew}">
-	        <div th:if="${customer}" class="panel-heading"><span class="lead">My NEW Orders</span></div>
-    	    <div th:if="${superBool or adminBool or editorBool}" class="panel-heading"><span class="lead">All NEW Orders</span></div>
+        <div th:if="${orders.isEmpty()}">
+        	<div th:if="${ordersall}">
+				<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+		        	<div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.mine.orderslist.heading}"></span></div>
+				</div>
+	
+				<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+	    	    	<div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+	    		    <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+	    	    	<div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.orderslist.heading}"></span></div>
+				</div>
+    	    </div>
+	        <div th:if="${ordersnew}">
+				<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+			        <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.mine.new.orderslist.heading}"></span></div>
+				</div>
+
+				<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+	    		    <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.new.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+    			    <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.new.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+    			    <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.new.orderslist.heading}"></span></div>
+				</div>
+	        </div>
+    	    <div th:if="${orderspending}">
+				<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.mine.pending.orderslist.heading}"></span></div>
+				</div>
+	
+				<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+    		    	<div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.pending.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+    		    	<div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.pending.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+    		    	<div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.pending.orderslist.heading}"></span></div>
+				</div>
+	        </div>
+    	    <div th:if="${ordersclosed}">
+				<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.mine.closed.orderslist.heading}"></span></div>
+				</div>
+
+				<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.closed.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.closed.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.closed.orderslist.heading}"></span></div>
+				</div>
+    	    </div>
+        	<div th:if="${orderscancelled}">
+				<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+		        	<div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.mine.cancelled.orderslist.heading}"></span></div>
+				</div>
+	
+				<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.cancelled.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.cancelled.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.empty.all.cancelled.orderslist.heading}"></span></div>
+				</div>
+    	    </div>
         </div>
-        <div th:if="${orderspending}">
-	        <div th:if="${customer}" class="panel-heading"><span class="lead">My PENDING Orders</span></div>
-    	    <div th:if="${superBool or adminBool or editorBool}" class="panel-heading"><span class="lead">All PENDING Orders</span></div>
+
+        <div th:if="${!orders.isEmpty()}">
+        	<div th:if="${ordersall}">
+				<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+		        	<div class="panel-heading"><span class="lead" th:text="#{label.pages.mine.orderslist.heading}"></span></div>
+				</div>
+
+				<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.all.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.all.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.all.orderslist.heading}"></span></div>
+				</div>
+    	    </div>
+	        <div th:if="${ordersnew}">
+				<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+			        <div class="panel-heading"><span class="lead" th:text="#{label.pages.mine.new.orderslist.heading}"></span></div>
+				</div>
+	
+				<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+	    		    <div class="panel-heading"><span class="lead" th:text="#{label.pages.all.new.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+	    		    <div class="panel-heading"><span class="lead" th:text="#{label.pages.all.new.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+	    		    <div class="panel-heading"><span class="lead" th:text="#{label.pages.all.new.orderslist.heading}"></span></div>
+				</div>
+	        </div>
+    	    <div th:if="${orderspending}">
+				<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.mine.pending.orderslist.heading}"></span></div>
+				</div>
+
+				<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+	    	    	<div class="panel-heading"><span class="lead" th:text="#{label.pages.all.pending.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+	    	    	<div class="panel-heading"><span class="lead" th:text="#{label.pages.all.pending.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+	    	    	<div class="panel-heading"><span class="lead" th:text="#{label.pages.all.pending.orderslist.heading}"></span></div>
+				</div>
+	        </div>
+    	    <div th:if="${ordersclosed}">
+	
+				<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.mine.closed.orderslist.heading}"></span></div>
+				</div>
+
+				<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.all.closed.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.all.closed.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.all.closed.orderslist.heading}"></span></div>
+				</div>
+    	    </div>
+        	<div th:if="${orderscancelled}">
+				<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+		        	<div class="panel-heading"><span class="lead" th:text="#{label.pages.mine.cancelled.orderslist.heading}"></span></div>
+				</div>
+
+				<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.all.cancelled.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.all.cancelled.orderslist.heading}"></span></div>
+				</div>
+      
+				<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+		    	    <div class="panel-heading"><span class="lead" th:text="#{label.pages.all.cancelled.orderslist.heading}"></span></div>
+				</div>
+    	    </div>
         </div>
-        <div th:if="${ordersclosed}">
-	        <div th:if="${customer}" class="panel-heading"><span class="lead">My CLOSED Orders</span></div>
-    	    <div th:if="${superBool or adminBool or editorBool}" class="panel-heading"><span class="lead">All CLOSED Orders</span></div>
-        </div>
-        <div th:if="${orderscancelled}">
-	        <div th:if="${customer}" class="panel-heading"><span class="lead">My CANCELLED Orders</span></div>
-    	    <div th:if="${superBool or adminBool or editorBool}" class="panel-heading"><span class="lead">All CANCELLED Orders</span></div>
-        </div>
-        <div th:if="${ordersall}">
-	        <div th:if="${customer}" class="panel-heading"><span class="lead">ALL My Orders</span></div>
-    	    <div th:if="${superBool or adminBool or editorBool}" class="panel-heading"><span class="lead">All Orders</span></div>
-        </div>
-    
+
+        <div th:if="${!orders.isEmpty()}">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -61,17 +221,29 @@ label{padding-left:0 !important}
                     <th>Number</th>
                     <th>Line</th>
 
-			   	    <div th:if="${superBool or adminBool or editorBool}">
+					<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
                     	<th>Customer</th>
                     	<th>Assigned To</th>
                     	<th>Supplied By</th>
-			   	    </div>
+					</div>
+      
+					<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+                    	<th>Customer</th>
+                    	<th>Assigned To</th>
+                    	<th>Supplied By</th>
+					</div>
+      
+					<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+                    	<th>Customer</th>
+                    	<th>Assigned To</th>
+                    	<th>Supplied By</th>
+					</div>
 
-                    <div th:if="${customerBool}">
+					<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
 	                    <!-- <th>Study Number</th> -->
     	                <!-- <th>Cost Code</th> -->
         	            <!-- <th>Comments</th> -->
-			   	    </div>
+					</div>
 
                     <th></th>
                 </tr>
@@ -101,21 +273,33 @@ label{padding-left:0 !important}
 	                    <td th:text="${order.embryoOrganism.name}"></td>
 			   	    </div>
 
-			   	    <div th:if="${superBool or adminBool or editorBool}">
+					<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
                     	<td th:text="${order.customerEmail}"></td>
                     	<td th:text="${order.editorEmail}"></td>
                     	<td th:text="${order.supplierEmail}"></td>
-			   	    </div>
+					</div>
+      
+					<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+                    	<td th:text="${order.customerEmail}"></td>
+                    	<td th:text="${order.editorEmail}"></td>
+                    	<td th:text="${order.supplierEmail}"></td>
+					</div>
+      
+					<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+                    	<td th:text="${order.customerEmail}"></td>
+                    	<td th:text="${order.editorEmail}"></td>
+                    	<td th:text="${order.supplierEmail}"></td>
+					</div>
 
-                    <div th:if="${customerBool}">
+					<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
 	                    <!-- <td th:text="${order.study}"></td> -->
     	                <!-- <td th:text="${order.code}"></td> -->
                     	<!-- <td th:text="${order.customerComment}"></td> -->
-                    </div>
+					</div>
 
                     <td><a th:href="@{/show-combined-order-__${order.oid}__}" class="btn btn-success custom-width">SHOW</a>
 
-                    <div th:if="${customerBool}">
+					<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
             	        <div th:if="${order.OrderType.name == 'Bird'}">
         	                <a th:href="@{/edit-combined-bird-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
     	                </div>
@@ -125,8 +309,9 @@ label{padding-left:0 !important}
             	        <div th:if="${order.OrderType.name == 'Embryo'}">
         	                <a th:href="@{/edit-combined-embryo-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
     	                </div>
-                    </div>
-                    <div th:if="${editorBool}">
+					</div>
+
+					<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
             	        <div th:if="${order.OrderType.name == 'Bird'}">
         	                <a th:href="@{/edit-combined-bird-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
     	                </div>
@@ -136,8 +321,9 @@ label{padding-left:0 !important}
             	        <div th:if="${order.OrderType.name == 'Embryo'}">
         	                <a th:href="@{/edit-combined-embryo-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
     	                </div>
-                    </div>
-                    <div th:if="${superBool or adminBool}">
+					</div>
+
+					<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
             	        <div th:if="${order.OrderType.name == 'Bird'}">
         	                <a th:href="@{/edit-combined-bird-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
     	                </div>
@@ -148,12 +334,26 @@ label{padding-left:0 !important}
         	                <a th:href="@{/edit-combined-embryo-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
     	                </div>
                         <a th:href="@{/delete-combined-order-__${order.oid}__}" class="btn btn-danger custom-width">DELETE</a>
-                    </div>
+					</div>
                     
+					<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+            	        <div th:if="${order.OrderType.name == 'Bird'}">
+        	                <a th:href="@{/edit-combined-bird-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
+    	                </div>
+            	        <div th:if="${order.OrderType.name == 'Egg'}">
+        	                <a th:href="@{/edit-combined-egg-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
+    	                </div>
+            	        <div th:if="${order.OrderType.name == 'Embryo'}">
+        	                <a th:href="@{/edit-combined-embryo-order-__${order.oid}__}" class="btn btn-danger custom-width">EDIT</a>
+    	                </div>
+                        <a th:href="@{/delete-combined-order-__${order.oid}__}" class="btn btn-danger custom-width">DELETE</a>
+					</div>
+      
                     </td>
                 </tr>
             	</div>
-       	        <div th:if="${adminBool or superBool}">
+            	
+				<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
     	        	<tr>
                 	    <td></td>
                 	    <td></td>
@@ -162,6 +362,8 @@ label{padding-left:0 !important}
     	                <td></td>
         	            <td></td>
     	                <td></td>
+        	            <td></td>
+        	            <td></td>
         	            <td></td>
         	            <td></td>
         	            <td><a th:href="@{/new-combined-bird-order}" class="btn btn-danger custom-width">ORDER BIRDS</a></td>
@@ -176,6 +378,8 @@ label{padding-left:0 !important}
         	            <td></td>
     	                <td></td>
         	            <td></td>
+        	            <td></td>
+        	            <td></td>
         	            <td><a th:href="@{/new-combined-egg-order}" class="btn btn-danger custom-width">ORDER EGGS</a></td>
             	    </tr>
     	        	<tr>
@@ -188,17 +392,67 @@ label{padding-left:0 !important}
         	            <td></td>
     	                <td></td>
         	            <td></td>
+        	            <td></td>
+        	            <td></td>
+        	            <td><a th:href="@{/new-combined-embryo-order}" class="btn btn-danger custom-width">ORDER EMBRYOS</a></td>
+            	    </tr>
+            	</div>
+
+				<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+    	        	<tr>
+                	    <td></td>
+                	    <td></td>
+                    	<td></td>
+	                    <td></td>
+    	                <td></td>
+        	            <td></td>
+    	                <td></td>
+        	            <td></td>
+        	            <td></td>
+        	            <td></td>
+        	            <td></td>
+        	            <td><a th:href="@{/new-combined-bird-order}" class="btn btn-danger custom-width">ORDER BIRDS</a></td>
+            	    </tr>
+    	        	<tr>
+        	            <td></td>
+                	    <td></td>
+                	    <td></td>
+                    	<td></td>
+	                    <td></td>
+    	                <td></td>
+        	            <td></td>
+    	                <td></td>
+        	            <td></td>
+        	            <td></td>
+        	            <td></td>
+        	            <td><a th:href="@{/new-combined-egg-order}" class="btn btn-danger custom-width">ORDER EGGS</a></td>
+            	    </tr>
+    	        	<tr>
+        	            <td></td>
+                	    <td></td>
+                	    <td></td>
+                    	<td></td>
+	                    <td></td>
+    	                <td></td>
+        	            <td></td>
+    	                <td></td>
+        	            <td></td>
+        	            <td></td>
+        	            <td></td>
         	            <td><a th:href="@{/new-combined-embryo-order}" class="btn btn-danger custom-width">ORDER EMBRYOS</a></td>
             	    </tr>
 		        </div>
             </tbody>
         </table>
+        </div>
     
     </div>
        
 
 <!--  </div> -->
 </div>
+
+<div lang="en" th:include="fragments/footer">&nbsp;</div>
     
 </body>
 

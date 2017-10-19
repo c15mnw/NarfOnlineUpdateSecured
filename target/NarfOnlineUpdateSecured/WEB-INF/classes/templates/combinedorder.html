@@ -1,10 +1,10 @@
 <html>
 
 <head>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
 
-
-<title>Order Form</title>
+<title th:text="#{label.pages.combined.order.form.title}">NARF Order Form</title>
 
 <style type="text/css">
 
@@ -14,11 +14,14 @@ label{padding-left:0 !important}
 </style>
 
 </head>
+
 <body>
 
 <div lang="en" th:include="fragments/header">&nbsp;</div>
 
 <div class="container">
+
+		<h2 th:text="#{label.pages.home.title}" /><br />    
 
 <div th:if="${param.message != null}" class="alert alert-info" th:text="${param.message[0]}">message</div>
 <div th:if="${param.error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
@@ -64,7 +67,7 @@ label{padding-left:0 !important}
             </div>
         </div>
 
-        <div th:if ="${superBool or adminBool or editorBool}">
+		<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
           <div th:if="${editBool}">
         	<div>
             	<div class="form-group col-md-12">
@@ -82,7 +85,48 @@ label{padding-left:0 !important}
           <div th:unless="${editBool}">
 	        <input type="hidden" name="suppliedDate" th:value="${suppliedDate}" />
           </div>
-        </div>
+		</div>
+      
+		<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+          <div th:if="${editBool}">
+        	<div>
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="suppliedDate">Date Supplied</label>
+                	<div class="col-md-7">
+                    	<input class="form-control" type="date" name="suppliedDate" th:value="*{suppliedDate} ? *{#dates.format(suppliedDate,'yyyy-MM-dd')}" />
+                    	<div class="has-error">
+                        	<errors path="suppliedDate" class="help-inline"/>
+                    	</div>
+                	</div>
+	            </div>
+    	    </div>
+          </div>
+
+          <div th:unless="${editBool}">
+	        <input type="hidden" name="suppliedDate" th:value="${suppliedDate}" />
+          </div>
+		</div>
+      
+		<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+          <div th:if="${editBool}">
+        	<div>
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="suppliedDate">Date Supplied</label>
+                	<div class="col-md-7">
+                    	<input class="form-control" type="date" name="suppliedDate" th:value="*{suppliedDate} ? *{#dates.format(suppliedDate,'yyyy-MM-dd')}" />
+                    	<div class="has-error">
+                        	<errors path="suppliedDate" class="help-inline"/>
+                    	</div>
+                	</div>
+	            </div>
+    	    </div>
+          </div>
+
+          <div th:unless="${editBool}">
+	        <input type="hidden" name="suppliedDate" th:value="${suppliedDate}" />
+          </div>
+		</div>
+
 
         <div>
             <div class="form-group col-md-12">
@@ -120,7 +164,7 @@ label{padding-left:0 !important}
             </div>
         </div>
 
-        <div th:if ="${superBool or adminBool or editorBool}">
+		<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
         	<div>
             	<div class="form-group col-md-12">
                 	<label class="col-md-3 control-lable" for="supplierComment">Supplier Comment</label>
@@ -132,12 +176,39 @@ label{padding-left:0 !important}
 	                </div>
     	        </div>
         	</div>
-        </div>
+		</div>
+      
+		<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+        	<div>
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="supplierComment">Supplier Comment</label>
+	                <div class="col-md-7">
+    					<textarea class="form-control" rows="12" th:field="*{supplierComment}"></textarea>
+        	            <div class="has-error">
+            	            <errors path="supplierComment" class="help-inline"/>
+                	    </div>
+	                </div>
+    	        </div>
+        	</div>
+		</div>
+      
+		<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+        	<div>
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="supplierComment">Supplier Comment</label>
+	                <div class="col-md-7">
+    					<textarea class="form-control" rows="12" th:field="*{supplierComment}"></textarea>
+        	            <div class="has-error">
+            	            <errors path="supplierComment" class="help-inline"/>
+                	    </div>
+	                </div>
+    	        </div>
+        	</div>
+		</div>
 
-        <div th:if="${customerBool}">
+		<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
 	    	<input type="hidden" name="supplierComment" th:value="${supplierComment}" />
-        </div>
-
+		</div>
 
         <div th:if ="${birdBool}">
         	<div>
@@ -291,7 +362,7 @@ label{padding-left:0 !important}
         	</div>
         </div>
 
-        <div th:if ="${superBool or adminBool}">
+		<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="customer">Customer</label>
                 <div class="col-md-7">
@@ -303,101 +374,274 @@ label{padding-left:0 !important}
                     </div>
                 </div>
             </div>
-	        <input type="hidden" name="OrderCollection" th:value="*{OrderCollection.oid}" />
-        </div>
-        <div th:if ="${editorBool or customerBool}">
+	        <input type="hidden" name="orderCollection" th:value="*{OrderCollection.oid}" />
+		</div>
+      
+		<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="customer">Customer</label>
+                <div class="col-md-7">
+                    <select th:field="*{customer}" >
+                        <option th:each="cust : ${customers}" th:value="${cust.id}" th:text="${cust.email}" >Editor</option>
+                    </select>
+                    <div class="has-error">
+                        <errors path="customer" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+	        <input type="hidden" name="orderCollection" th:value="*{OrderCollection.oid}" />
+		</div>
+        
+		<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
 	        <input type="hidden" name="customer" th:value="*{customer}" />
-        </div>
+		</div>
 
-        <div th:if ="${superBool or adminBool or editorBool}">
-          <div th:if="${editBool}">
-            <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="editor">Assigned To</label>
-                <div class="col-md-7">
-                    <select th:field="*{editor}" >
-                        <option th:each="ed : ${editors}" th:value="${ed.id}" th:text="${ed.email}" >Editor</option>
-                    </select>
-                    <div class="has-error">
-                        <errors path="editor" class="help-inline"/>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="supplier">Supplied By</label>
-                <div class="col-md-7">
-                    <select th:field="*{supplier}" >
-                        <option th:each="supplier : ${suppliers}" th:value="${supplier.id}" th:text="${supplier.email}" >Supplier</option>
-                    </select>
-                    <div class="has-error">
-                        <errors path="supplier" class="help-inline"/>
-                    </div>
-                </div>
-            </div>
-          </div>
+		<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+	        <input type="hidden" name="customer" th:value="*{customer}" />
+		</div>
 
-          <div th:unless="${editBool}">
-	        <input type="hidden" name="editor" th:value="${editor}" />
-	        <input type="hidden" name="supplier" th:value="${supplier}" />
-          </div>
-        </div>
+		<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+          	<div th:if="${editBool}">
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="editor">Assigned To</label>
+                	<div class="col-md-7">
+                    	<select th:field="*{editor}" >
+                        	<option th:each="ed : ${editors}" th:value="${ed.id}" th:text="${ed.email}" >Editor</option>
+	                    </select>
+    	                <div class="has-error">
+        	                <errors path="editor" class="help-inline"/>
+            	        </div>
+                	</div>
+            	</div>
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="supplier">Supplied By</label>
+                	<div class="col-md-7">
+                    	<select th:field="*{supplier}" >
+                        	<option th:each="supplier : ${suppliers}" th:value="${supplier.id}" th:text="${supplier.email}" >Supplier</option>
+                    	</select>
+                    	<div class="has-error">
+                        	<errors path="supplier" class="help-inline"/>
+	                    </div>
+    	            </div>
+        	    </div>
+          	</div>
 
-        <div th:if ="${superBool or adminBool or editorBool}">
-          <div th:if="${editBool}">
-            <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="orderCollection">Collection</label>
-                <div class="col-md-7">
-                    <select th:field="*{orderCollection}" >
-                        <option th:each="collection : ${collections}" th:value="${collection.oid}" th:text="${collection.name}" >Collection</option>
-                    </select>
-                    <div class="has-error">
-                        <errors path="orderCollection" class="help-inline"/>
-                    </div>
-                </div>
-            </div>
-          </div>
+          	<div th:unless="${editBool}">
+	        	<input type="hidden" name="editor" th:value="${editor}" />
+	        	<input type="hidden" name="supplier" th:value="${supplier}" />
+          	</div>
+		</div>
+      
+		<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+          	<div th:if="${editBool}">
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="editor">Assigned To</label>
+                	<div class="col-md-7">
+                    	<select th:field="*{editor}" >
+                        	<option th:each="ed : ${editors}" th:value="${ed.id}" th:text="${ed.email}" >Editor</option>
+	                    </select>
+    	                <div class="has-error">
+        	                <errors path="editor" class="help-inline"/>
+            	        </div>
+                	</div>
+            	</div>
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="supplier">Supplied By</label>
+                	<div class="col-md-7">
+                    	<select th:field="*{supplier}" >
+                        	<option th:each="supplier : ${suppliers}" th:value="${supplier.id}" th:text="${supplier.email}" >Supplier</option>
+                    	</select>
+                    	<div class="has-error">
+                        	<errors path="supplier" class="help-inline"/>
+	                    </div>
+    	            </div>
+        	    </div>
+          	</div>
 
-          <div th:unless="${editBool}">
-	        <input type="hidden" name="orderCollection" th:value="${orderCollection}" />
-          </div>
+          	<div th:unless="${editBool}">
+	        	<input type="hidden" name="editor" th:value="${editor}" />
+	        	<input type="hidden" name="supplier" th:value="${supplier}" />
+          	</div>
+		</div>
+      
+		<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+          	<div th:if="${editBool}">
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="editor">Assigned To</label>
+                	<div class="col-md-7">
+                    	<select th:field="*{editor}" >
+                        	<option th:each="ed : ${editors}" th:value="${ed.id}" th:text="${ed.email}" >Editor</option>
+	                    </select>
+    	                <div class="has-error">
+        	                <errors path="editor" class="help-inline"/>
+            	        </div>
+                	</div>
+            	</div>
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="supplier">Supplied By</label>
+                	<div class="col-md-7">
+                    	<select th:field="*{supplier}" >
+                        	<option th:each="supplier : ${suppliers}" th:value="${supplier.id}" th:text="${supplier.email}" >Supplier</option>
+                    	</select>
+                    	<div class="has-error">
+                        	<errors path="supplier" class="help-inline"/>
+	                    </div>
+    	            </div>
+        	    </div>
+          	</div>
 
-          <div th:if="${editBool}">
-	        <input type="hidden" name="orderType" th:value="*{orderType.oid}" />
-          </div>
+          	<div th:unless="${editBool}">
+	        	<input type="hidden" name="editor" th:value="${editor}" />
+	        	<input type="hidden" name="supplier" th:value="${supplier}" />
+          	</div>
+		</div>
 
-          <div th:unless="${editBool}">
-	        <input type="hidden" name="orderType" th:value="*{orderType.oid}" />
-          </div>
-        </div>
+		<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+	    	<div th:if="${editBool}">
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="orderCollection">Collection</label>
+                	<div class="col-md-7">
+                    	<select th:field="*{orderCollection}" >
+                        	<option th:each="collection : ${collections}" th:value="${collection.oid}" th:text="${collection.name}" >Collection</option>
+                    	</select>
+                    	<div class="has-error">
+                        	<errors path="orderCollection" class="help-inline"/>
+                    	</div>
+                	</div>
+            	</div>
+          	</div>
 
-        <div th:if ="${superBool or adminBool or editorBool}">
-          <div th:if="${editBool}">
-            <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="orderStatus">Status</label>
-                <div class="col-md-7">
-                    <select th:field="*{orderStatus}" >
-                        <option th:each="status : ${statuss}" th:value="${status.oid}" th:text="${status.name}" >Status</option>
-                    </select>
-                    <div class="has-error">
-                        <errors path="orderStatus" class="help-inline"/>
-                    </div>
-                </div>
-            </div>
-          </div>
+          	<div th:unless="${editBool}">
+	        	<input type="hidden" name="orderCollection" th:value="${orderCollection}" />
+          	</div>
 
-          <div th:unless="${editBool}">
-	        <input type="hidden" name="orderStatus" th:value="*{orderStatus.oid}" />
-          </div>
-        </div>
+          	<div th:if="${editBool}">
+	        	<input type="hidden" name="orderType" th:value="*{orderType.oid}" />
+          	</div>
 
-        <div th:if ="${customerBool}">
+          	<div th:unless="${editBool}">
+	        	<input type="hidden" name="orderType" th:value="*{orderType.oid}" />
+          	</div>
+	        
+	        <div th:if="${editBool}">
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="orderStatus">Status</label>
+                	<div class="col-md-7">
+                    	<select th:field="*{orderStatus}" >
+                        	<option th:each="status : ${statuss}" th:value="${status.oid}" th:text="${status.name}" >Status</option>
+                    	</select>
+                    	<div class="has-error">
+                        	<errors path="orderStatus" class="help-inline"/>
+                    	</div>
+                	</div>
+            	</div>
+          	</div>
+
+          	<div th:unless="${editBool}">
+	        	<input type="hidden" name="orderStatus" th:value="*{orderStatus.oid}" />
+          	</div>
+		</div>
+      
+		<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+	    	<div th:if="${editBool}">
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="orderCollection">Collection</label>
+                	<div class="col-md-7">
+                    	<select th:field="*{orderCollection}" >
+                        	<option th:each="collection : ${collections}" th:value="${collection.oid}" th:text="${collection.name}" >Collection</option>
+                    	</select>
+                    	<div class="has-error">
+                        	<errors path="orderCollection" class="help-inline"/>
+                    	</div>
+                	</div>
+            	</div>
+          	</div>
+
+          	<div th:unless="${editBool}">
+	        	<input type="hidden" name="orderCollection" th:value="${orderCollection}" />
+          	</div>
+
+          	<div th:if="${editBool}">
+	        	<input type="hidden" name="orderType" th:value="*{orderType.oid}" />
+          	</div>
+
+          	<div th:unless="${editBool}">
+	        	<input type="hidden" name="orderType" th:value="*{orderType.oid}" />
+          	</div>
+	        
+	        <div th:if="${editBool}">
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="orderStatus">Status</label>
+                	<div class="col-md-7">
+                    	<select th:field="*{orderStatus}" >
+                        	<option th:each="status : ${statuss}" th:value="${status.oid}" th:text="${status.name}" >Status</option>
+                    	</select>
+                    	<div class="has-error">
+                        	<errors path="orderStatus" class="help-inline"/>
+                    	</div>
+                	</div>
+            	</div>
+          	</div>
+
+          	<div th:unless="${editBool}">
+	        	<input type="hidden" name="orderStatus" th:value="*{orderStatus.oid}" />
+          	</div>
+		</div>
+      
+		<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+	    	<div th:if="${editBool}">
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="orderCollection">Collection</label>
+                	<div class="col-md-7">
+                    	<select th:field="*{orderCollection}" >
+                        	<option th:each="collection : ${collections}" th:value="${collection.oid}" th:text="${collection.name}" >Collection</option>
+                    	</select>
+                    	<div class="has-error">
+                        	<errors path="orderCollection" class="help-inline"/>
+                    	</div>
+                	</div>
+            	</div>
+          	</div>
+
+          	<div th:unless="${editBool}">
+	        	<input type="hidden" name="orderCollection" th:value="${orderCollection}" />
+          	</div>
+
+          	<div th:if="${editBool}">
+	        	<input type="hidden" name="orderType" th:value="*{orderType.oid}" />
+          	</div>
+
+          	<div th:unless="${editBool}">
+	        	<input type="hidden" name="orderType" th:value="*{orderType.oid}" />
+          	</div>
+	        
+	        <div th:if="${editBool}">
+            	<div class="form-group col-md-12">
+                	<label class="col-md-3 control-lable" for="orderStatus">Status</label>
+                	<div class="col-md-7">
+                    	<select th:field="*{orderStatus}" >
+                        	<option th:each="status : ${statuss}" th:value="${status.oid}" th:text="${status.name}" >Status</option>
+                    	</select>
+                    	<div class="has-error">
+                        	<errors path="orderStatus" class="help-inline"/>
+                    	</div>
+                	</div>
+            	</div>
+          	</div>
+
+          	<div th:unless="${editBool}">
+	        	<input type="hidden" name="orderStatus" th:value="*{orderStatus.oid}" />
+          	</div>
+		</div>
+
+
+		<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
 	        <input type="hidden" name="supplier" th:value="*{supplier}" />
     	    <input type="hidden" name="editor" th:value="*{editor}" />
 	        <input type="hidden" name="orderStatus" th:value="*{orderStatus.oid}" />
 	        <input type="hidden" name="orderCollection" th:value="*{orderCollection.oid}" />
 	        <input type="hidden" name="orderType" th:value="*{orderType.oid}" />
-        </div>
 
-        <div th:if ="${customerBool}">
     	    <div th:if="${editBool}">
             	<div class="form-actions floatRight">
 					<input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/my-orders-list}">BACK</a>
@@ -410,7 +654,7 @@ label{padding-left:0 !important}
 	        </div>
         </div>
 
-        <div th:if ="${superBool or adminBool or editorBool}">
+		<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
     	    <div th:if="${editBool}">
 	        	<div th:if="${mineBool}">
             		<div class="form-actions floatRight">
@@ -435,7 +679,61 @@ label{padding-left:0 !important}
         	    	</div>
     	    	</div>
 	        </div>
-        </div>
+		</div>
+      
+		<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+    	    <div th:if="${editBool}">
+	        	<div th:if="${mineBool}">
+            		<div class="form-actions floatRight">
+						<input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/my-orders-list}">BACK</a>
+        	    	</div>
+    	      	</div>
+	        	<div th:unless="${mineBool}">
+            		<div class="form-actions floatRight">
+						<input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/orders-list}">BACK</a>
+        	    	</div>
+    	    	</div>
+	        </div>
+    	    <div th:unless="${editBool}">
+	        	<div th:if="${mineBool}">
+            		<div class="form-actions floatRight">
+						<input type="submit" value="ADD" class="btn btn-primary btn-sm"/> or <a th:href="@{/my-orders-list}">BACK</a>
+        	    	</div>
+    	      	</div>
+	        	<div th:unless="${mineBool}">
+            		<div class="form-actions floatRight">
+						<input type="submit" value="ADD" class="btn btn-primary btn-sm"/> or <a th:href="@{/orders-list}">BACK</a>
+        	    	</div>
+    	    	</div>
+	        </div>
+		</div>
+      
+		<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+    	    <div th:if="${editBool}">
+	        	<div th:if="${mineBool}">
+            		<div class="form-actions floatRight">
+						<input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/my-orders-list}">BACK</a>
+        	    	</div>
+    	      	</div>
+	        	<div th:unless="${mineBool}">
+            		<div class="form-actions floatRight">
+						<input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/orders-list}">BACK</a>
+        	    	</div>
+    	    	</div>
+	        </div>
+    	    <div th:unless="${editBool}">
+	        	<div th:if="${mineBool}">
+            		<div class="form-actions floatRight">
+						<input type="submit" value="ADD" class="btn btn-primary btn-sm"/> or <a th:href="@{/my-orders-list}">BACK</a>
+        	    	</div>
+    	      	</div>
+	        	<div th:unless="${mineBool}">
+            		<div class="form-actions floatRight">
+						<input type="submit" value="ADD" class="btn btn-primary btn-sm"/> or <a th:href="@{/orders-list}">BACK</a>
+        	    	</div>
+    	    	</div>
+	        </div>
+		</div>
         
     </form>
 

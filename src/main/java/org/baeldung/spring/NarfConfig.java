@@ -21,12 +21,13 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.google.common.base.Preconditions;
 
 @Configuration
-@PropertySource({ "classpath:persistence.properties" })
 @ComponentScan({ "main.java.org.baeldung.persistence" })
+@PropertySource( "classpath:persistence.properties" )
 @EnableJpaRepositories(basePackages = "com.roslin.mwicks.spring.narf.repository",
                        entityManagerFactoryRef = "narfEntityManager", 
                        transactionManagerRef = "narfTransactionManager")

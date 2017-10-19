@@ -1,10 +1,10 @@
 <html>
 
 <head>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
 
-
-<title>Order Form</title>
+<title th:text="#{label.pages.selected.order.form.title}">NARF Order Form</title>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -26,6 +26,8 @@ label{padding-left:0 !important}
 <div lang="en" th:include="fragments/header">&nbsp;</div>
 
 <div class="container">
+
+		<h2 th:text="#{label.pages.home.title}" /><br />    
 
 <div th:if="${param.message != null}" class="alert alert-info" th:text="${param.message[0]}">message</div>
 <div th:if="${param.error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>

@@ -21,7 +21,8 @@ import javax.validation.Valid;
 
 @Controller
 public class RegistrationCaptchaController {
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+
+	private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private IUserService userService;

@@ -4,7 +4,9 @@
 <head>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-    <title th:text="#{label.pages.home.title}">home</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -15,13 +17,109 @@
 	<div class="container-fluid">
   
   		<div class="navbar-header">
-			<a class="navbar-brand" th:href="@{/home.html}" th:text="#{label.pages.home.title}">home</a>
+			<a class="navbar-brand" th:href="@{/home.html?user=} + ${loggedin}"><img th:src="@{/resources/images/narf-logo-wide.png}" alt="NARF" style="width:150px;height:68px"></img></a>
 		</div>
   
-      	<ul class="nav navbar-nav navbar-right">
-      	    <p th:text="${'( ' + loggedin + ' )'}"></p>	
-        	<a th:href="@{/logout}" th:text="#{label.pages.logout}">logout</a>
-      	</ul>
+		<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
+  			<ul class="nav navbar-nav">
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.order}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+		       			<li><a th:href="@{/new-selection-order}" th:text="#{label.pages.selection.any.order.menu}">All My Orders</a></li>
+		       			<li class="divider"></li>
+	    	     		<li><a th:href="@{/new-combined-bird-order}" th:text="#{label.pages.combined.bird.order.menu}">All My NEW Orders</a></li>
+				    	<li><a th:href="@{/new-combined-egg-order}" th:text="#{label.pages.combined.egg.order.menu}">All My PENDING Orders</a></li>
+				        <li><a th:href="@{/new-combined-embryo-order}" th:text="#{label.pages.combined.embryo.order.menu}">All My CLOSED Orders</a></li>
+        			</ul>
+  				</li>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.orders}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+		       			<li><a th:href="@{/my-orders-list}" th:text="#{label.pages.mine.orderslist.menu}">All My Orders</a></li>
+		       			<li class="divider"></li>
+	    	    		<li><a th:href="@{/my-orders-list-new}" th:text="#{label.pages.mine.new.orderslist.menu}">All My NEW Orders</a></li>
+				    	<li><a th:href="@{/my-orders-list-pending}" th:text="#{label.pages.mine.pending.orderslist.menu}">All My PENDING Orders</a></li>
+				        <li><a th:href="@{/my-orders-list-closed}" th:text="#{label.pages.mine.closed.orderslist.menu}">All My CLOSED Orders</a></li>
+	    			    <li><a th:href="@{/my-orders-list-cancelled}" th:text="#{label.pages.mine.cancelled.orderslist.menu}">All My CANCELLED Orders</a></li>
+        			</ul>
+	      		</li>
+			</ul>
+		</div>
+
+		<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
+  			<ul class="nav navbar-nav">
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.orders}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+		       			<li><a th:href="@{/orders-list}" th:text="#{label.pages.all.orderslist.menu}">All My Orders</a></li>
+		       			<li class="divider"></li>
+	    	      		<li><a th:href="@{/orders-list-new}" th:text="#{label.pages.all.new.orderslist.menu}">All My NEW Orders</a></li>
+				    	<li><a th:href="@{/orders-list-pending}" th:text="#{label.pages.all.pending.orderslist.menu}">All My PENDING Orders</a></li>
+				        <li><a th:href="@{/orders-list-closed}" th:text="#{label.pages.all.closed.orderslist.menu}">All My CLOSED Orders</a></li>
+	    			    <li><a th:href="@{/orders-list-cancelled}" th:text="#{label.pages.all.cancelled.orderslist.menu}">All My CANCELLED Orders</a></li>
+        			</ul>
+	      		</li>
+			</ul>
+		</div>
+
+		<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
+  			<ul class="nav navbar-nav">
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.order}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+		       			<li><a th:href="@{/new-selection-order}" th:text="#{label.pages.selection.any.order.menu}">All My Orders</a></li>
+		       			<li class="divider"></li>
+	    	      		<li><a th:href="@{/new-combined-bird-order}" th:text="#{label.pages.combined.bird.order.menu}">All My NEW Orders</a></li>
+				    	<li><a th:href="@{/new-combined-egg-order}" th:text="#{label.pages.combined.egg.order.menu}">All My PENDING Orders</a></li>
+				        <li><a th:href="@{/new-combined-embryo-order}" th:text="#{label.pages.combined.embryo.order.menu}">All My CLOSED Orders</a></li>
+        			</ul>
+  				</li>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.orders}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+		       			<li><a th:href="@{/orders-list}" th:text="#{label.pages.all.orderslist.menu}">All My Orders</a></li>
+		       			<li class="divider"></li>
+	    	      		<li><a th:href="@{/orders-list-new}" th:text="#{label.pages.all.new.orderslist.menu}">All My NEW Orders</a></li>
+				    	<li><a th:href="@{/orders-list-pending}" th:text="#{label.pages.all.pending.orderslist.menu}">All My PENDING Orders</a></li>
+				        <li><a th:href="@{/orders-list-closed}" th:text="#{label.pages.all.closed.orderslist.menu}">All My CLOSED Orders</a></li>
+	    			    <li><a th:href="@{/orders-list-cancelled}" th:text="#{label.pages.all.cancelled.orderslist.menu}">All My CANCELLED Orders</a></li>
+        			</ul>
+	      		</li>
+			</ul>
+		</div>
+      
+		<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
+  			<ul class="nav navbar-nav">
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.order}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+		       			<li><a th:href="@{/new-selection-order}" th:text="#{label.pages.selection.any.order.menu}">All My Orders</a></li>
+		       			<li class="divider"></li>
+	    	      		<li><a th:href="@{/new-combined-bird-order}" th:text="#{label.pages.combined.bird.order.menu}">All My NEW Orders</a></li>
+				    	<li><a th:href="@{/new-combined-egg-order}" th:text="#{label.pages.combined.egg.order.menu}">All My PENDING Orders</a></li>
+				        <li><a th:href="@{/new-combined-embryo-order}" th:text="#{label.pages.combined.embryo.order.menu}">All My CLOSED Orders</a></li>
+        			</ul>
+  				</li>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.orders}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+		      			<li><a th:href="@{/orders-list}" th:text="#{label.pages.all.orderslist.menu}">All My Orders</a></li>
+		      			<li class="divider"></li>
+	    	      		<li><a th:href="@{/orders-list-new}" th:text="#{label.pages.all.new.orderslist.menu}">All My NEW Orders</a></li>
+				    	<li><a th:href="@{/orders-list-pending}" th:text="#{label.pages.all.pending.orderslist.menu}">All My PENDING Orders</a></li>
+				        <li><a th:href="@{/orders-list-closed}" th:text="#{label.pages.all.closed.orderslist.menu}">All My CLOSED Orders</a></li>
+	    			    <li><a th:href="@{/orders-list-cancelled}" th:text="#{label.pages.all.cancelled.orderslist.menu}">All My CANCELLED Orders</a></li>
+        			</ul>
+	      		</li>
+			</ul>
+		</div>
+
+  
+		<div th:if="${loggedin == null}">
+      		<ul class="nav navbar-nav navbar-right">
+				<li><a th:href="@{/registration.html}"><span class="glyphicon glyphicon-user"></span>&nbsp;<span th:text="#{label.pages.signup}" th:remove="tag">Example page header</span></a></li>
+				<li><a th:href="@{/login}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;<span th:text="#{label.pages.login}" th:remove="tag">Example page header</span></a></li>
+	      	</ul>
+		</div>
+		<div th:unless="${loggedin == null}">
+      		<ul class="nav navbar-nav navbar-right">
+	      	    <li><a th:text="${'( ' + loggedin + ' )'}" th:href="@{/logout}">Logout</a></li>
+    	    	<li><a th:text="#{label.pages.logout}" th:href="@{/logout}">Logout</a></li>
+	      	</ul>
+		</div>
       	
     </div>
     

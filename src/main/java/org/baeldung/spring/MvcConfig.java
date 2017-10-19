@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -52,35 +54,10 @@ import com.roslin.mwicks.spring.narf.converter.OidToOrganismConverter;
 @EnableWebMvc
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
-    private static final String VIEW_RESOLVER_PREFIX = "/resources/jsp/";
-    private static final String VIEW_RESOLVER_SUFFIX = ".jsp";
-
-    private static final String VIEW_CONTROLLER_LOGIN = "/login";
-    private static final String VIEW_CONTROLLER_REGISTRATION = "/registration.html";
-    private static final String VIEW_CONTROLLER_REGISTRATION_CAPTCHA = "/registrationCaptcha.html";
-    private static final String VIEW_CONTROLLER_LOGOUT = "/logout.html";
-    private static final String VIEW_CONTROLLER_HOMEPAGE = "/home.html";
-    //private static final String VIEW_CONTROLLER_HOMEPAGE = "/homepage.html";
-    private static final String VIEW_CONTROLLER_EXPIRED_ACCOUNT = "/expiredAccount.html";
-    private static final String VIEW_CONTROLLER_BAD_USER = "/badUser.html";
-    private static final String VIEW_CONTROLLER_EMAIL_ERROR = "/emailError.html";
-    private static final String VIEW_CONTROLLER_HOME = "/home.html";
-    private static final String VIEW_CONTROLLER_INVALID_SESSION = "/invalidSession.html";
-    private static final String VIEW_CONTROLLER_CONSOLE = "/console.html";
-    private static final String VIEW_CONTROLLER_ADMIN = "/admin.html";
-    private static final String VIEW_CONTROLLER_SUCCESS_REGISTER = "/successRegister.html";
-    private static final String VIEW_CONTROLLER_FORGET_PASSWORD = "/forgetPassword.html";
-    private static final String VIEW_CONTROLLER_UPDATE_PASSWORD = "/updatePassword.html";
-    private static final String VIEW_CONTROLLER_CHANGE_PASSWORD = "/changePassword.html";
-    private static final String VIEW_CONTROLLER_USERS = "/users.html";
-    private static final String VIEW_CONTROLLER_QRCODE = "/qrcode.html";
-    
-    
     public MvcConfig() {
-        super();
-    }
 
-    //
+    	super();
+    }
 
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
@@ -88,24 +65,24 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         super.addViewControllers(registry);
         
         registry.addViewController("/").setViewName("forward:/login");
-        registry.addViewController(VIEW_CONTROLLER_LOGIN);
-        registry.addViewController(VIEW_CONTROLLER_REGISTRATION);
-        registry.addViewController(VIEW_CONTROLLER_REGISTRATION_CAPTCHA);
-        registry.addViewController(VIEW_CONTROLLER_LOGOUT);
-        registry.addViewController(VIEW_CONTROLLER_HOMEPAGE);
-        registry.addViewController(VIEW_CONTROLLER_EXPIRED_ACCOUNT);
-        registry.addViewController(VIEW_CONTROLLER_BAD_USER);
-        registry.addViewController(VIEW_CONTROLLER_EMAIL_ERROR);
-        registry.addViewController(VIEW_CONTROLLER_HOME);
-        registry.addViewController(VIEW_CONTROLLER_INVALID_SESSION);
-        registry.addViewController(VIEW_CONTROLLER_CONSOLE);
-        registry.addViewController(VIEW_CONTROLLER_ADMIN);
-        registry.addViewController(VIEW_CONTROLLER_SUCCESS_REGISTER);
-        registry.addViewController(VIEW_CONTROLLER_FORGET_PASSWORD);
-        registry.addViewController(VIEW_CONTROLLER_UPDATE_PASSWORD);
-        registry.addViewController(VIEW_CONTROLLER_CHANGE_PASSWORD);
-        registry.addViewController(VIEW_CONTROLLER_USERS);
-        registry.addViewController(VIEW_CONTROLLER_QRCODE);
+        registry.addViewController("/login");
+        registry.addViewController("/registration.html");
+        registry.addViewController("/registrationCaptcha.html");
+        registry.addViewController("/logout.html");
+        registry.addViewController("/home.html");
+        registry.addViewController("/expiredAccount.html");
+        registry.addViewController("/badUser.html");
+        registry.addViewController("/emailError.html");
+        registry.addViewController("/home.html");
+        registry.addViewController("/invalidSession.html");
+        registry.addViewController("/console.html");
+        registry.addViewController("/admin.html");
+        registry.addViewController("/successRegister.html");
+        registry.addViewController("/forgetPassword.html");
+        registry.addViewController("/updatePassword.html");
+        registry.addViewController("/changePassword.html");
+        registry.addViewController("/users.html");
+        registry.addViewController("/qrcode.html");
     }
 
     @Override
@@ -130,8 +107,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(localeChangeInterceptor);
     }
 
-    // beans
 
+    // beans
     @Bean
     public LocaleResolver localeResolver() {
     	
@@ -140,48 +117,26 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         return cookieLocaleResolver;
     }
 
-    // @Bean
-    // public MessageSource messageSource() {
-    // final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-    // messageSource.setBasename("classpath:messages");
-    // messageSource.setUseCodeAsDefaultMessage(true);
-    // messageSource.setDefaultEncoding("UTF-8");
-    // messageSource.setCacheSeconds(0);
-    // return messageSource;
-    // }
-
+    
     @Bean
     public EmailValidator usernameValidator() {
         
     	return new EmailValidator();
     }
 
+    
     @Bean
     public PasswordMatchesValidator passwordMatchesValidator() {
         
     	return new PasswordMatchesValidator();
     }
 
+
     @Bean
     @ConditionalOnMissingBean(RequestContextListener.class)
     public RequestContextListener requestContextListener() {
         
     	return new RequestContextListener();
-    }
-    
-    
-    
-    
-    @Bean
-    public ViewResolver viewResolver() {
-    	
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix(VIEW_RESOLVER_PREFIX);
-        viewResolver.setSuffix(VIEW_RESOLVER_SUFFIX);
-
-        return viewResolver;
     }
     
     
@@ -257,7 +212,17 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public OidToOrderStatusConverter getMyOrderStatusConverter() { return new OidToOrderStatusConverter(); }
     @Bean
     public OidToOrderTypeConverter getMyOrderTypeConverter() { return new OidToOrderTypeConverter(); }
+
     
-    
+    /**
+     * Handles favicon.ico requests assuring no <code>404 Not Found</code> error is returned.
+     */
+    @Controller
+    static class FaviconController {
+        @RequestMapping("favicon.ico")
+        String favicon() {
+            return "forward:/resources/images/favicon.ico";
+        }
+    }
 
 }

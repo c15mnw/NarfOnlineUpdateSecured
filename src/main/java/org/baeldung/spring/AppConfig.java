@@ -10,7 +10,8 @@ public class AppConfig {
 
     @Bean
     public ActiveUserStore activeUserStore() {
-        return new ActiveUserStore();
+
+    	return new ActiveUserStore();
     }
 
 }

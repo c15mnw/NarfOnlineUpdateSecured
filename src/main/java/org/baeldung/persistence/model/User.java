@@ -140,6 +140,10 @@ public class User implements Comparable<User>{
         this.secret = secret;
     }
 
+    public String getFirstAndLastName() {
+        return firstName + " " + lastName;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

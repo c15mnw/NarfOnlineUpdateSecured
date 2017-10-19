@@ -1,6 +1,9 @@
 package main.java.org.baeldung.security;
 
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +17,6 @@ import org.springframework.stereotype.Component;
 @Component("myLogoutSuccessHandler")
 public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
 
-    private static final String VIEW_CONTROLLER_LOGOUT = "/logout.html?logSucc=true";
-
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         
@@ -26,6 +27,10 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
     		session.removeAttribute("user");
         }
     	
-        response.sendRedirect(request.getContextPath() + VIEW_CONTROLLER_LOGOUT);
+    	/*
+    	 * When Running under Tomcat, change this line to CONTEXT PATH + /logout.html?logSucc=true
+    	 */
+        response.sendRedirect("/NarfOnlineUpdateSecured/logout.html?logSucc=true");
+        //response.sendRedirect("/logout.html?logSucc=true");
     }
 }

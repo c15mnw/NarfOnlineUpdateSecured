@@ -200,47 +200,6 @@ public class ApplicationController extends AbstractController {
 
 
     /*
-     * HOME Page 
-     */
-    @RequestMapping(value = { "/home", "/" }, method = RequestMethod.GET)
-    public String homePage(ModelMap model) {
-    	
-        LOGGER.debug("Rendering HOME page");
-
-        model.addAttribute("loggedin", whoIsLoggedIn());
-
-    	model.addAttribute("publicBool", false);
-    	model.addAttribute("customerBool", false);
-    	model.addAttribute("editorBool", false);
-    	model.addAttribute("adminBool", false);
-    	model.addAttribute("superBool", false);
-
-    	if ( determinePrivilege() == 5 ) {
-
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-        	model.addAttribute("publicBool", true);
-        }
-        
-        return "home";
-    }
-    
-
-    /*
      * CRUD for User - LIST
      */
     @RequestMapping(value = { "/users-list" }, 
@@ -250,47 +209,6 @@ public class ApplicationController extends AbstractController {
         LOGGER.debug("Rendering /userslist - listUsers()");
 
         model.addAttribute("loggedin", whoIsLoggedIn());
-
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
 
         List<User> users = userService.getUsers();
     	Collections.sort(users, new User.OrderByIdAsc());
@@ -415,47 +333,6 @@ public class ApplicationController extends AbstractController {
         LOGGER.debug("Rendering /antibodyslist - listAntibodys()");
 
         model.addAttribute("loggedin", whoIsLoggedIn());
-
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
 
         List<Antibody> antibodys = serviceantibody.findAll();
     	Collections.sort(antibodys, new Antibody.OrderByOidAsc());
@@ -648,47 +525,6 @@ public class ApplicationController extends AbstractController {
         LOGGER.debug("Rendering /antibody-references-list - listAntibodyReferences()");
 
         model.addAttribute("loggedin", whoIsLoggedIn());
-
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
 
         List<AntibodyReference> antibodyreferences = serviceantibodyreference.findAll();
     	Collections.sort(antibodyreferences, new AntibodyReference.OrderByReferenceAsc());
@@ -966,47 +802,6 @@ public class ApplicationController extends AbstractController {
 
         model.addAttribute("loggedin", whoIsLoggedIn());
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-
         List<Line> lines = serviceline.findAll();
         
         model.addAttribute("lines", lines);
@@ -1147,47 +942,6 @@ public class ApplicationController extends AbstractController {
         LOGGER.debug("Rendering /line-references-list - listLineReferences()");
 
         model.addAttribute("loggedin", whoIsLoggedIn());
-
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
 
         List<LineReference> linereferences = servicelinereference.findAll();
     	Collections.sort(linereferences, new LineReference.OrderByReferenceAsc());
@@ -1443,47 +1197,6 @@ public class ApplicationController extends AbstractController {
 
         model.addAttribute("loggedin", whoIsLoggedIn());
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-
         List<Strain> strains = servicestrain.findAll();
         
         model.addAttribute("strains", strains);
@@ -1671,47 +1384,6 @@ public class ApplicationController extends AbstractController {
         LOGGER.debug("Rendering /strain-references-list - listStrainReferences()");
 
         model.addAttribute("loggedin", whoIsLoggedIn());
-
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
 
         List<StrainReference> strainreferences = servicestrainreference.findAll();
     	Collections.sort(strainreferences, new StrainReference.OrderByReferenceAsc());
@@ -1903,47 +1575,6 @@ public class ApplicationController extends AbstractController {
 
         model.addAttribute("loggedin", whoIsLoggedIn());
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-        
     	List<StrainUse> strainuses = servicestrainuse.findAll();
     	Collections.sort(strainuses, new StrainUse.OrderByUseAsc());
     	model.addAttribute("strainuses", strainuses);
@@ -2211,47 +1842,6 @@ public class ApplicationController extends AbstractController {
 		dtoorder.setEmbryoOrderLineIncubation( embryoOrderLineIncubation );
 		dtoorder.setEmbryoOrganism( embryoOrganism );
 
-    	if ( determinePrivilege() == 5 ) {
-
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", true);
-        	model.addAttribute("superBool", false);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", true);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", true);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-        	model.addAttribute("publicBool", true);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        }
-
     	model.addAttribute("order", dtoorder);
 
         return "combinedordershow";
@@ -2278,12 +1868,6 @@ public class ApplicationController extends AbstractController {
 
     	if ( determinePrivilege() == 5 ) {
 
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
         	
@@ -2296,12 +1880,6 @@ public class ApplicationController extends AbstractController {
         	suppliers.addAll( listByPrivilege(3) );
         }
         if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
         	
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
@@ -2318,12 +1896,6 @@ public class ApplicationController extends AbstractController {
         	
             dtoorder.setEditor( whoIsLoggedInOid() );
 
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        	
         	editors.add( getNullUser() );
         	editors.addAll( listByPrivilege(3) );
         	
@@ -2333,20 +1905,9 @@ public class ApplicationController extends AbstractController {
         if ( determinePrivilege() == 2 ) {
         	
             dtoorder.setCustomer( whoIsLoggedInOid() );
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
         }
         if ( determinePrivilege() == 1 ) {
         	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
         }
 
     	model.addAttribute("customers", customers);
@@ -2401,47 +1962,6 @@ public class ApplicationController extends AbstractController {
         }
         
         model.addAttribute("loggedin", whoIsLoggedIn());
-
-    	if ( determinePrivilege() == 5 ) {
-
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
 
         Set<EggOrderLine> EggOrderLines = new HashSet<EggOrderLine>();
 
@@ -2545,7 +2065,10 @@ public class ApplicationController extends AbstractController {
         
         if (dataSettings.isEmailTrue()) {
         	
-            mailSender.send( constructEmail("NEW EGG ORDER", savedOrder.formatNewEmail(customerEmail) + "\n\n" +getShowUrl(request, savedOrder.getOidAsString())) );
+        	String emailTo = env.getProperty("support.emailEditorsTo");
+        	String emailFrom = env.getProperty("support.emailFrom");
+        	
+            mailSender.send( constructEmail( emailTo, emailFrom, "NEW EGG ORDER", savedOrder.formatNewEmail(customerEmail) + "\n\n" + getShowUrl(request, savedOrder.getOidAsString())) );
         }
 
         model.addAttribute("message", "Order " + savedOrder.getOid() + " ADDED successfully");
@@ -2575,12 +2098,6 @@ public class ApplicationController extends AbstractController {
 
     	if ( determinePrivilege() == 5 ) {
 
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
         	
@@ -2593,12 +2110,6 @@ public class ApplicationController extends AbstractController {
         	suppliers.addAll( listByPrivilege(3) );
         }
         if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
         	
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
@@ -2615,12 +2126,6 @@ public class ApplicationController extends AbstractController {
         	
             dtoorder.setEditor( whoIsLoggedInOid() );
 
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        	
         	editors.add( getNullUser() );
         	editors.addAll( listByPrivilege(3) );
         	
@@ -2630,20 +2135,9 @@ public class ApplicationController extends AbstractController {
         if ( determinePrivilege() == 2 ) {
         	
             dtoorder.setCustomer( whoIsLoggedInOid() );
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
         }
         if ( determinePrivilege() == 1 ) {
         	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
         }
 
     	model.addAttribute("customers", customers);
@@ -2703,47 +2197,6 @@ public class ApplicationController extends AbstractController {
         	return "combinedorder";
         }
         
-        if ( determinePrivilege() == 5 ) {
-
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-
         Set<BirdOrderLine> BirdOrderLines = new HashSet<BirdOrderLine>();
 
         BirdOrderLine BirdOrderLine = new BirdOrderLine();
@@ -2848,7 +2301,10 @@ public class ApplicationController extends AbstractController {
         
         if (dataSettings.isEmailTrue()) {
         	
-            mailSender.send( constructEmail("NEW BIRD ORDER", savedOrder.formatNewEmail(customerEmail) + "\n\n" +getShowUrl(request, savedOrder.getOidAsString())) );
+        	String emailTo = env.getProperty("support.emailEditorsTo");
+        	String emailFrom = env.getProperty("support.emailFrom");
+        	
+            mailSender.send( constructEmail( emailTo, emailFrom, "NEW BIRD ORDER", savedOrder.formatNewEmail(customerEmail) + "\n\n" + getShowUrl(request, savedOrder.getOidAsString())) );
         }
 
         model.addAttribute("message", "Order " + savedOrder.getOid() + " ADDED successfully");
@@ -2878,12 +2334,6 @@ public class ApplicationController extends AbstractController {
 
     	if ( determinePrivilege() == 5 ) {
 
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
         	
@@ -2896,12 +2346,6 @@ public class ApplicationController extends AbstractController {
         	suppliers.addAll( listByPrivilege(3) );
         }
         if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
         	
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
@@ -2918,12 +2362,6 @@ public class ApplicationController extends AbstractController {
         	
             dtoorder.setEditor( whoIsLoggedInOid() );
 
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        	
         	editors.add( getNullUser() );
         	editors.addAll( listByPrivilege(3) );
         	
@@ -2933,20 +2371,9 @@ public class ApplicationController extends AbstractController {
         if ( determinePrivilege() == 2 ) {
         	
             dtoorder.setCustomer( whoIsLoggedInOid() );
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
         }
         if ( determinePrivilege() == 1 ) {
         	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
         }
 
     	model.addAttribute("customers", customers);
@@ -3104,48 +2531,10 @@ public class ApplicationController extends AbstractController {
         
         if (dataSettings.isEmailTrue()) {
         	
-            mailSender.send( constructEmail("NEW EMBRYO ORDER", savedOrder.formatNewEmail(customerEmail) + "\n\n" +getShowUrl(request, savedOrder.getOidAsString())) );
-        }
-
-        if ( determinePrivilege() == 5 ) {
-
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
+        	String emailTo = env.getProperty("support.emailEditorsTo");
+        	String emailFrom = env.getProperty("support.emailFrom");
         	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
+            mailSender.send( constructEmail( emailTo, emailFrom, "NEW EMBRYO ORDER", savedOrder.formatNewEmail(customerEmail) + "\n\n" + getShowUrl(request, savedOrder.getOidAsString())) );
         }
 
         model.addAttribute("message", "Order " + savedOrder.getOid() + " ADDED successfully");
@@ -3175,12 +2564,6 @@ public class ApplicationController extends AbstractController {
 
     	if ( determinePrivilege() == 5 ) {
 
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
         	
@@ -3193,12 +2576,6 @@ public class ApplicationController extends AbstractController {
         	suppliers.addAll( listByPrivilege(3) );
         }
         if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
         	
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
@@ -3215,12 +2592,6 @@ public class ApplicationController extends AbstractController {
         	
             dtoorder.setEditor( whoIsLoggedInOid() );
 
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        	
         	editors.add( getNullUser() );
         	editors.addAll( listByPrivilege(3) );
         	
@@ -3230,20 +2601,9 @@ public class ApplicationController extends AbstractController {
         if ( determinePrivilege() == 2 ) {
         	
             dtoorder.setCustomer( whoIsLoggedInOid() );
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
         }
         if ( determinePrivilege() == 1 ) {
         	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
         }
 
         List<OrderType> orderTypes = serviceordertype.findAll();
@@ -3308,47 +2668,6 @@ public class ApplicationController extends AbstractController {
         }
         
         model.addAttribute("loggedin", whoIsLoggedIn());
-
-    	if ( determinePrivilege() == 5 ) {
-
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
 
         Set<BirdOrderLine> birdOrderLines = new HashSet<BirdOrderLine>();
    	    Set<EggOrderLine> eggOrderLines = new HashSet<EggOrderLine>();
@@ -3489,7 +2808,10 @@ public class ApplicationController extends AbstractController {
         
         if (dataSettings.isEmailTrue()) {
         	
-            mailSender.send( constructEmail("NEW " + savedOrder.getOrderType().getName() + " ORDER", savedOrder.formatNewEmail(customerEmail) + "\n\n" + getShowUrl(request, savedOrder.getOidAsString())) );
+        	String emailTo = env.getProperty("support.emailEditorsTo");
+        	String emailFrom = env.getProperty("support.emailFrom");
+        	
+            mailSender.send( constructEmail( emailTo, emailFrom, "NEW " + savedOrder.getOrderType().getName() + " ORDER", savedOrder.formatNewEmail(customerEmail) + "\n\n" + getShowUrl(request, savedOrder.getOidAsString())) );
         }
 
         model.addAttribute("message", "Order " + savedOrder.getOid() + " ADDED successfully");
@@ -3588,12 +2910,6 @@ public class ApplicationController extends AbstractController {
 
     	if ( determinePrivilege() == 5 ) {
 
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
         	
@@ -3606,12 +2922,6 @@ public class ApplicationController extends AbstractController {
         	suppliers.addAll( listByPrivilege(3) );
         }
         if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
         	
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
@@ -3628,12 +2938,6 @@ public class ApplicationController extends AbstractController {
         	
             dtoorder.setEditor( whoIsLoggedInOid() );
 
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        	
         	editors.add( getNullUser() );
         	editors.addAll( listByPrivilege(3) );
         	
@@ -3643,20 +2947,9 @@ public class ApplicationController extends AbstractController {
         if ( determinePrivilege() == 2 ) {
         	
             dtoorder.setCustomer( whoIsLoggedInOid() );
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
         }
         if ( determinePrivilege() == 1 ) {
         	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
         }
 
     	model.addAttribute("customers", customers);
@@ -3693,47 +2986,6 @@ public class ApplicationController extends AbstractController {
         }
         
         Order order = serviceorder.findByOid( ObjectConverter.convert(oid, Long.class) ); 
-
-    	if ( determinePrivilege() == 5 ) {
-
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
 
         EggOrderLine EggOrderLine = new EggOrderLine();
 
@@ -3842,7 +3094,10 @@ public class ApplicationController extends AbstractController {
         	
             if (dataSettings.isEmailTrue()) {
             	
-                mailSender.send( constructEmail("EGG ORDER CLOSED", order.formatClosedEmail(customerEmail, editorEmail, supplierEmail) + "\n\n" +getShowUrl(request, order.getOidAsString())) );
+            	String emailTo = env.getProperty("support.emailAdminTo");
+            	String emailFrom = env.getProperty("support.emailFrom");
+            	
+                mailSender.send( constructEmail( emailTo, emailFrom, "EGG ORDER CLOSED", order.formatClosedEmail(customerEmail, editorEmail, supplierEmail) + "\n\n" + getShowUrl(request, order.getOidAsString())) );
             }
         }
 
@@ -3951,12 +3206,6 @@ public class ApplicationController extends AbstractController {
 
     	if ( determinePrivilege() == 5 ) {
 
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
         	
@@ -3969,12 +3218,6 @@ public class ApplicationController extends AbstractController {
         	suppliers.addAll( listByPrivilege(3) );
         }
         if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
         	
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
@@ -3991,12 +3234,6 @@ public class ApplicationController extends AbstractController {
         	
             dtoorder.setEditor( whoIsLoggedInOid() );
 
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        	
         	editors.add( getNullUser() );
         	editors.addAll( listByPrivilege(3) );
         	
@@ -4006,20 +3243,9 @@ public class ApplicationController extends AbstractController {
         if ( determinePrivilege() == 2 ) {
         	
             dtoorder.setCustomer( whoIsLoggedInOid() );
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
         }
         if ( determinePrivilege() == 1 ) {
         	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
         }
 
     	model.addAttribute("customers", customers);
@@ -4055,48 +3281,7 @@ public class ApplicationController extends AbstractController {
         	return "order";
         }
  
-    	if ( determinePrivilege() == 5 ) {
-
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-
-        
+         
         Order order = serviceorder.findByOid( ObjectConverter.convert(oid, Long.class) );
 
         String customerEmail = "";
@@ -4208,7 +3393,10 @@ public class ApplicationController extends AbstractController {
         	
             if (dataSettings.isEmailTrue()) {
             	
-                mailSender.send( constructEmail("BIRD ORDER CLOSED", order.formatClosedEmail(customerEmail, editorEmail, supplierEmail) + "\n\n" +getShowUrl(request, order.getOidAsString())) );
+            	String emailTo = env.getProperty("support.emailAdminTo");
+            	String emailFrom = env.getProperty("support.emailFrom");
+            	
+                mailSender.send( constructEmail( emailTo, emailFrom, "BIRD ORDER CLOSED", order.formatClosedEmail(customerEmail, editorEmail, supplierEmail) + "\n\n" + getShowUrl(request, order.getOidAsString())) );
             }
         }
 
@@ -4307,12 +3495,6 @@ public class ApplicationController extends AbstractController {
 
     	if ( determinePrivilege() == 5 ) {
 
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
         	
@@ -4325,12 +3507,6 @@ public class ApplicationController extends AbstractController {
         	suppliers.addAll( listByPrivilege(3) );
         }
         if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
         	
         	customers.add( getNullUser() );
         	customers.addAll( listByPrivilege(2) );
@@ -4347,12 +3523,6 @@ public class ApplicationController extends AbstractController {
         	
             dtoorder.setEditor( whoIsLoggedInOid() );
 
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        	
         	editors.add( getNullUser() );
         	editors.addAll( listByPrivilege(3) );
         	
@@ -4362,20 +3532,9 @@ public class ApplicationController extends AbstractController {
         if ( determinePrivilege() == 2 ) {
         	
             dtoorder.setCustomer( whoIsLoggedInOid() );
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
         }
         if ( determinePrivilege() == 1 ) {
         	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
         }
 
     	model.addAttribute("customers", customers);
@@ -4412,47 +3571,6 @@ public class ApplicationController extends AbstractController {
         }
 
         Order order = serviceorder.findByOid( ObjectConverter.convert(oid, Long.class) );
-
-    	if ( determinePrivilege() == 5 ) {
-
-        	model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
 
         Set<EmbryoOrderLine> EmbryoOrderLines = order.getEmbryoOrderLines();
 
@@ -4561,7 +3679,10 @@ public class ApplicationController extends AbstractController {
         	
             if (dataSettings.isEmailTrue()) {
             	
-                mailSender.send( constructEmail("EMBRYO ORDER CLOSED", order.formatClosedEmail(customerEmail, editorEmail, supplierEmail) + "\n\n" +getShowUrl(request, order.getOidAsString())) );
+            	String emailTo = env.getProperty("support.emailAdminTo");
+            	String emailFrom = env.getProperty("support.emailFrom");
+            	
+                mailSender.send( constructEmail( emailTo, emailFrom, "EMBRYO ORDER CLOSED", order.formatClosedEmail(customerEmail, editorEmail, supplierEmail) + "\n\n" + getShowUrl(request, order.getOidAsString())) );
             }
         }
 
@@ -4593,47 +3714,6 @@ public class ApplicationController extends AbstractController {
     	model.addAttribute("ordersclosed", false);
     	model.addAttribute("orderscancelled", false);
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-        
         List<Order> orders = serviceorder.findAll();
         
     	Collections.sort(orders, new Order.OrderByCreatedDesc());
@@ -4697,47 +3777,6 @@ public class ApplicationController extends AbstractController {
     	model.addAttribute("ordersclosed", false);
     	model.addAttribute("orderscancelled", false);
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-        
         OrderStatus orderstatusNew = serviceorderstatus.findByName(EnumOrderStatus.NEW.getEnumOrderStatus());
 
         List<Order> orders = serviceorder.findAllStatus( orderstatusNew );
@@ -4804,47 +3843,6 @@ public class ApplicationController extends AbstractController {
     	model.addAttribute("ordersclosed", false);
     	model.addAttribute("orderscancelled", false);
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-        
         OrderStatus orderstatusPendingGreenwood = serviceorderstatus.findByName(EnumOrderStatus.PENDING_GREENWOOD.getEnumOrderStatus());
         OrderStatus orderstatusPendingBumstead = serviceorderstatus.findByName(EnumOrderStatus.PENDING_BUMSTEAD.getEnumOrderStatus());
        
@@ -4919,47 +3917,6 @@ public class ApplicationController extends AbstractController {
     	model.addAttribute("ordersclosed", true);
     	model.addAttribute("orderscancelled", false);
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-        
         OrderStatus orderstatusClosed = serviceorderstatus.findByName(EnumOrderStatus.CLOSED.getEnumOrderStatus());
 
         List<Order> orders = serviceorder.findAllStatus( orderstatusClosed );
@@ -5027,47 +3984,6 @@ public class ApplicationController extends AbstractController {
     	model.addAttribute("ordersclosed", false);
     	model.addAttribute("orderscancelled", true);
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-        
         OrderStatus orderstatusCancelled = serviceorderstatus.findByName(EnumOrderStatus.CANCELLED.getEnumOrderStatus());
 
         List<Order> orders = serviceorder.findAllStatus( orderstatusCancelled );
@@ -5134,47 +4050,6 @@ public class ApplicationController extends AbstractController {
     	model.addAttribute("ordersclosed", false);
     	model.addAttribute("orderscancelled", false);
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-
         List<Order> orders = serviceorder.findAllByCustomer( whoIsLoggedInOid() );
 
     	Collections.sort(orders, new Order.OrderByCreatedDesc());
@@ -5238,47 +4113,6 @@ public class ApplicationController extends AbstractController {
     	model.addAttribute("ordersclosed", false);
     	model.addAttribute("orderscancelled", false);
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-        
         OrderStatus orderstatusNew = serviceorderstatus.findByName(EnumOrderStatus.NEW.getEnumOrderStatus());
 
         List<Order> orders = serviceorder.findAllByCustomerAndStatus( whoIsLoggedInOid(), orderstatusNew );
@@ -5321,6 +4155,7 @@ public class ApplicationController extends AbstractController {
 
         }
     	
+        
         model.addAttribute("orders", dtoorders);
 
         return "combinedorderslist";
@@ -5345,47 +4180,6 @@ public class ApplicationController extends AbstractController {
     	model.addAttribute("ordersclosed", false);
     	model.addAttribute("orderscancelled", false);
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-        
         OrderStatus orderstatusPendingGreenwood = serviceorderstatus.findByName(EnumOrderStatus.PENDING_GREENWOOD.getEnumOrderStatus());
         OrderStatus orderstatusPendingBumstead = serviceorderstatus.findByName(EnumOrderStatus.PENDING_BUMSTEAD.getEnumOrderStatus());
        
@@ -5460,47 +4254,6 @@ public class ApplicationController extends AbstractController {
     	model.addAttribute("ordersclosed", true);
     	model.addAttribute("orderscancelled", false);
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-        
         OrderStatus orderstatusClosed = serviceorderstatus.findByName(EnumOrderStatus.CLOSED.getEnumOrderStatus());
 
         List<Order> orders = serviceorder.findAllByCustomerAndStatus( whoIsLoggedInOid(), orderstatusClosed );
@@ -5567,47 +4320,6 @@ public class ApplicationController extends AbstractController {
     	model.addAttribute("ordersclosed", false);
     	model.addAttribute("orderscancelled", true);
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-        
         OrderStatus orderstatusCancelled = serviceorderstatus.findByName(EnumOrderStatus.CANCELLED.getEnumOrderStatus());
 
         List<Order> orders = serviceorder.findAllByCustomerAndStatus( whoIsLoggedInOid(), orderstatusCancelled );
@@ -5680,47 +4392,6 @@ public class ApplicationController extends AbstractController {
 
         model.addAttribute("loggedin", whoIsLoggedIn());
 
-    	if ( determinePrivilege() == 5 ) {
-
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", true);
-        }
-        if (determinePrivilege() == 4 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("adminBool", true);
-        }
-        if ( determinePrivilege() == 3 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("customerBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("editorBool", true);
-        }
-        if ( determinePrivilege() == 2 ) {
-        	
-            model.addAttribute("publicBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("customerBool", true);
-        }
-        if ( determinePrivilege() == 1 ) {
-        	
-            model.addAttribute("customerBool", false);
-        	model.addAttribute("editorBool", false);
-        	model.addAttribute("adminBool", false);
-        	model.addAttribute("superBool", false);
-        	model.addAttribute("publicBool", true);
-        }
-
         return "combinedordersuccess";
     }
      
@@ -5762,11 +4433,17 @@ public class ApplicationController extends AbstractController {
     	
         LOGGER.debug("Processing - determinePrivilege()");
 
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        
-        return user.determinePrivilege();
+    	if ( SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(User.class) ) {
+    		
+        	User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        	return user.determinePrivilege();
+    	}
+    	else {
+    		
+    		return 0;
+    	}
     }
-     
 
     private String whoIsLoggedIn() {
     	
@@ -5774,9 +4451,16 @@ public class ApplicationController extends AbstractController {
 
         if ( SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null) {
         	
-        	User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        	if ( SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(User.class) ) {
+        		
+            	User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        	return user.getFirstName() + " " + user.getLastName();
+            	return user.getFirstName() + " " + user.getLastName();
+        	}
+        	else {
+        		
+                return "";
+        	}
         }
         else {
         
@@ -5790,9 +4474,16 @@ public class ApplicationController extends AbstractController {
 
         if ( SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null) {
         	
-        	User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        	if ( SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(User.class) ) {
+        		
+            	User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        	return user.getId();
+            	return user.getId();
+        	}
+        	else {
+        		
+                return (long) 0;
+        	}
         }
         else {
         
@@ -5815,21 +4506,25 @@ public class ApplicationController extends AbstractController {
      }
 
 
-    private SimpleMailMessage constructEmail(String subject, String body) {
+    private SimpleMailMessage constructEmail(String emailTo, String emailFrom, String subject, String body) {
         
     	final SimpleMailMessage email = new SimpleMailMessage();
         
     	email.setSubject(subject);
         email.setText(body);
-        email.setTo(env.getProperty("support.emailTo"));
-        email.setFrom(env.getProperty("support.emailFrom"));
+        email.setTo(emailTo);
+        email.setFrom(emailFrom);
         
         return email;
     }
 
     private String getShowUrl(HttpServletRequest request, String oid) {
     	
-    	return "http://" + request.getServerName() + ":" + request.getServerPort() + "/show-combined-order-" + oid;
+    	/*
+    	 * When Running under Tomcat, change this line to CONTEXT PATH + /logout.html?logSucc=true
+    	 */
+    	return "http://" + request.getServerName() + ":" + request.getServerPort() + "/NarfOnlineUpdateSecured/show-combined-order-" + oid;
+    	//return "http://" + request.getServerName() + ":" + request.getServerPort() + "/show-combined-order-" + oid;
     }
 
     /**
