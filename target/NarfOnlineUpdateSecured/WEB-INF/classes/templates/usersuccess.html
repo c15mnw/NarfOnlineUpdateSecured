@@ -23,9 +23,9 @@ label{padding-left:0 !important}
 <div th:if="${message != null}" class="alert alert-info" th:text="${message}">message</div>
 <div th:if="${error != null}" class="alert alert-danger" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}">error</div>
 
-        <div class="well lead">User UPDATE Success</div>
-            <a th:href="@{/userslist}">List of Users</a>
-        </div>
+<div class="well lead">User UPDATE Success</div>
+	<a th:href="@{/users-list}">List of Users</a>
+</div>
     
 </body>
 

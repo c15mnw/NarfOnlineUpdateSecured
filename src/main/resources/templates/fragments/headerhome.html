@@ -22,7 +22,7 @@
   
 		<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
   			<ul class="nav navbar-nav">
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${param.user[0]}"><span th:text="#{label.pages.home.order}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.order}" th:remove="tag">Example page header</span><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 		       			<li><a th:href="@{/new-selection-order}" th:text="#{label.pages.selection.any.order.menu}">All My Orders</a></li>
 		       			<li class="divider"></li>
@@ -31,7 +31,7 @@
 				        <li><a th:href="@{/new-combined-embryo-order}" th:text="#{label.pages.combined.embryo.order.menu}">All My CLOSED Orders</a></li>
         			</ul>
   				</li>
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${param.user[0]}"><span th:text="#{label.pages.home.orders}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.orders}" th:remove="tag">Example page header</span><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 		       			<li><a th:href="@{/my-orders-list}" th:text="#{label.pages.mine.orderslist.menu}">All My Orders</a></li>
 		       			<li class="divider"></li>
@@ -46,7 +46,7 @@
 
 		<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
   			<ul class="nav navbar-nav">
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${param.user[0]}"><span th:text="#{label.pages.home.orders}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.orders}" th:remove="tag">Example page header</span><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 		       			<li><a th:href="@{/orders-list}" th:text="#{label.pages.all.orderslist.menu}">All My Orders</a></li>
 		       			<li class="divider"></li>
@@ -61,7 +61,7 @@
 
 		<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
   			<ul class="nav navbar-nav">
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${param.user[0]}"><span th:text="#{label.pages.home.order}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.order}" th:remove="tag">Example page header</span><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 		       			<li><a th:href="@{/new-selection-order}" th:text="#{label.pages.selection.any.order.menu}">All My Orders</a></li>
 		       			<li class="divider"></li>
@@ -70,7 +70,7 @@
 				        <li><a th:href="@{/new-combined-embryo-order}" th:text="#{label.pages.combined.embryo.order.menu}">All My CLOSED Orders</a></li>
         			</ul>
   				</li>
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${param.user[0]}"><span th:text="#{label.pages.home.orders}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.orders}" th:remove="tag">Example page header</span><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 		       			<li><a th:href="@{/orders-list}" th:text="#{label.pages.all.orderslist.menu}">All My Orders</a></li>
 		       			<li class="divider"></li>
@@ -85,7 +85,7 @@
       
 		<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
   			<ul class="nav navbar-nav">
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${param.user[0]}"><span th:text="#{label.pages.home.order}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.order}" th:remove="tag">Example page header</span><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 		       			<li><a th:href="@{/new-selection-order}" th:text="#{label.pages.selection.any.order.menu}">All My Orders</a></li>
 		       			<li class="divider"></li>
@@ -94,7 +94,7 @@
 				        <li><a th:href="@{/new-combined-embryo-order}" th:text="#{label.pages.combined.embryo.order.menu}">All My CLOSED Orders</a></li>
         			</ul>
   				</li>
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${param.user[0]}"><span th:text="#{label.pages.home.orders}" th:remove="tag">Example page header</span><span class="caret"></span></a>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" th:href="@{/home.html?user=} + ${loggedin}"><span th:text="#{label.pages.home.orders}" th:remove="tag">Example page header</span><span class="caret"></span></a>
 					<ul class="dropdown-menu">
 		      			<li><a th:href="@{/orders-list}" th:text="#{label.pages.all.orderslist.menu}">All My Orders</a></li>
 		      			<li class="divider"></li>

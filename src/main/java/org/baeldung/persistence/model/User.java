@@ -190,23 +190,23 @@ public class User implements Comparable<User>{
         
         for ( Role role : this.getRoles()) {
 
-        	if ( role.getName().equals("ROLE_SUPER")) {
+        	if ( role.getName().equals("SUPER_ROLE")) {
 
         		level = 5;
             }
-        	if ( role.getName().equals("ROLE_ADMIN")) {
+        	if ( role.getName().equals("ADMIN_ROLE")) {
                 
         		level = 4;
             }
-        	if ( role.getName().equals("ROLE_EDITOR")) {
+        	if ( role.getName().equals("EDITOR_ROLE")) {
                 
         		level = 3;
             }
-        	if ( role.getName().equals("ROLE_CUSTOMER")) {
+        	if ( role.getName().equals("CUSTOMER_ROLE")) {
                 
         		level = 2;
             }
-        	if ( role.getName().equals("ROLE_PUBLIC")) {
+        	if ( role.getName().equals("PUBLIC_ROLE")) {
             
         		level = 1;
             } 

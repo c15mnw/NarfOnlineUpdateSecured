@@ -185,19 +185,19 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         final List<Privilege> editorPrivileges = Arrays.asList(passwordPrivilege, publicPrivilege, customerPrivilege, editorPrivilege);
         final List<Privilege> customerPrivileges = Arrays.asList(passwordPrivilege, publicPrivilege, customerPrivilege);
         final List<Privilege> publicPrivileges = Arrays.asList(passwordPrivilege, publicPrivilege);
-         */
+        */
         
-        createRoleIfNotFound("ROLE_SUPER", superPrivileges);
-        createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
-        createRoleIfNotFound("ROLE_EDITOR", editorPrivileges);
-        createRoleIfNotFound("ROLE_CUSTOMER", customerPrivileges);
-        createRoleIfNotFound("ROLE_PUBLIC", publicPrivileges);
+        createRoleIfNotFound("SUPER_ROLE", superPrivileges);
+        createRoleIfNotFound("ADMIN_ROLE", adminPrivileges);
+        createRoleIfNotFound("EDITOR_ROLE", editorPrivileges);
+        createRoleIfNotFound("CUSTOMER_ROLE", customerPrivileges);
+        createRoleIfNotFound("PUBLIC_ROLE", publicPrivileges);
 
-        final Role superRole = roleRepository.findByName("ROLE_SUPER");
-        final Role adminRole = roleRepository.findByName("ROLE_ADMIN");
-        final Role editorRole = roleRepository.findByName("ROLE_EDITOR");
-        final Role customerRole = roleRepository.findByName("ROLE_CUSTOMER");
-        final Role publicRole = roleRepository.findByName("ROLE_PUBLIC");
+        final Role superRole = roleRepository.findByName("SUPER_ROLE");
+        final Role adminRole = roleRepository.findByName("ADMIN_ROLE");
+        final Role editorRole = roleRepository.findByName("EDITOR_ROLE");
+        final Role customerRole = roleRepository.findByName("CUSTOMER_ROLE");
+        final Role publicRole = roleRepository.findByName("PUBLIC_ROLE");
         
         final User userNull = new User();
         userNull.setFirstName("");

@@ -10,12 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import main.java.org.baeldung.persistence.DataSettings;
+
 @Component("myLogoutSuccessHandler")
 public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
+
+    @Autowired
+    private DataSettings dataSettings;
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -30,7 +37,13 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
     	/*
     	 * When Running under Tomcat, change this line to CONTEXT PATH + /logout.html?logSucc=true
     	 */
-        response.sendRedirect("/NarfOnlineUpdateSecured/logout.html?logSucc=true");
-        //response.sendRedirect("/logout.html?logSucc=true");
+        if (dataSettings.isTomcatTrue()) {
+
+            response.sendRedirect("/NarfOnlineUpdateSecured/logout.html?logSucc=true");
+        }
+        else {
+        	
+            response.sendRedirect("/logout.html?logSucc=true");
+        }
     }
 }

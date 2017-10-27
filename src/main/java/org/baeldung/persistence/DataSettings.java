@@ -12,6 +12,7 @@ public class DataSettings {
 
     private String load;
     private String email;
+    private String tomcat;
 
     public DataSettings() {
     }
@@ -83,4 +84,41 @@ public class DataSettings {
     	
     	return outBool;
     }
+    
+    public String getTomcat() {
+    	
+        return tomcat;
+    }
+
+    public void setTomcat(String tomcat) {
+    	
+        this.tomcat = tomcat.toLowerCase();
+    }
+    
+    public boolean isTomcatTrue() {
+    	
+    	boolean outBool = false;
+
+    	if ( this.tomcat.equals(TRUE) ) {
+    		
+    		outBool = true;
+    	}
+    	
+    	return outBool;
+    }
+    
+    public boolean isTomcatFalse() {
+    	
+    	boolean outBool = false;
+
+    	if ( this.tomcat.equals(FALSE) ) {
+    		
+    		outBool = true;
+    	}
+    	
+    	return outBool;
+    }
+
 }
+
+

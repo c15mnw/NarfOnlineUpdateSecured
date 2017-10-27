@@ -206,7 +206,7 @@ public class ApplicationController extends AbstractController {
     		method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
     	
-        LOGGER.debug("Rendering /userslist - listUsers()");
+        LOGGER.debug("Rendering /users-list - listUsers()");
 
         model.addAttribute("loggedin", whoIsLoggedIn());
 
@@ -4477,7 +4477,7 @@ public class ApplicationController extends AbstractController {
         	if ( SecurityContextHolder.getContext().getAuthentication().getPrincipal().getClass().equals(User.class) ) {
         		
             	User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+            	
             	return user.getId();
         	}
         	else {
@@ -4519,12 +4519,22 @@ public class ApplicationController extends AbstractController {
     }
 
     private String getShowUrl(HttpServletRequest request, String oid) {
+
+    	String response = "";
     	
     	/*
     	 * When Running under Tomcat, change this line to CONTEXT PATH + /logout.html?logSucc=true
     	 */
-    	return "http://" + request.getServerName() + ":" + request.getServerPort() + "/NarfOnlineUpdateSecured/show-combined-order-" + oid;
-    	//return "http://" + request.getServerName() + ":" + request.getServerPort() + "/show-combined-order-" + oid;
+        if (dataSettings.isTomcatTrue()) {
+
+            response = "http://" + request.getServerName() + ":" + request.getServerPort() + "/NarfOnlineUpdateSecured/show-combined-order-" + oid;
+        }
+        else {
+        	
+            response = "http://" + request.getServerName() + ":" + request.getServerPort() + "/show-combined-order-" + oid;
+        }
+
+        return response;
     }
 
     /**

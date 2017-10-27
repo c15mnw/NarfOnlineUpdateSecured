@@ -215,7 +215,7 @@ label{padding-left:0 !important}
                 	<th>Oid</th>
                     <th>Date Requested</th>
                     <th>Date Required</th>
-                    <th>Date Submitted</th>
+                    <th>Date Supplied</th>
                     <th>Status</th>
                     <th>Type</th>
                     <th>Number</th>
@@ -239,13 +239,7 @@ label{padding-left:0 !important}
                     	<th>Supplied By</th>
 					</div>
 
-					<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
-	                    <!-- <th>Study Number</th> -->
-    	                <!-- <th>Cost Code</th> -->
-        	            <!-- <th>Comments</th> -->
-					</div>
-
-                    <th></th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -291,13 +285,8 @@ label{padding-left:0 !important}
                     	<td th:text="${order.supplierEmail}"></td>
 					</div>
 
-					<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
-	                    <!-- <td th:text="${order.study}"></td> -->
-    	                <!-- <td th:text="${order.code}"></td> -->
-                    	<!-- <td th:text="${order.customerComment}"></td> -->
-					</div>
-
-                    <td><a th:href="@{/show-combined-order-__${order.oid}__}" class="btn btn-success custom-width">SHOW</a>
+                    <td>
+                    	<a th:href="@{/show-combined-order-__${order.oid}__}" class="btn btn-success custom-width">SHOW</a>
 
 					<div sec:authorize="hasAuthority('CUSTOMER_PRIVILEGE')">
             	        <div th:if="${order.OrderType.name == 'Bird'}">
@@ -355,91 +344,25 @@ label{padding-left:0 !important}
             	
 				<div sec:authorize="hasAuthority('SUPER_PRIVILEGE')">
     	        	<tr>
-                	    <td></td>
-                	    <td></td>
-                    	<td></td>
-	                    <td></td>
-    	                <td></td>
-        	            <td></td>
-    	                <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td><a th:href="@{/new-combined-bird-order}" class="btn btn-danger custom-width">ORDER BIRDS</a></td>
+        	            <td colspan="12"><a th:href="@{/new-combined-bird-order}" class="btn btn-danger custom-width">ORDER BIRDS</a></td>
             	    </tr>
     	        	<tr>
-        	            <td></td>
-                	    <td></td>
-                	    <td></td>
-                    	<td></td>
-	                    <td></td>
-    	                <td></td>
-        	            <td></td>
-    	                <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td><a th:href="@{/new-combined-egg-order}" class="btn btn-danger custom-width">ORDER EGGS</a></td>
+        	            <td colspan="12"><a th:href="@{/new-combined-egg-order}" class="btn btn-danger custom-width">ORDER EGGS</a></td>
             	    </tr>
     	        	<tr>
-        	            <td></td>
-                	    <td></td>
-                	    <td></td>
-                    	<td></td>
-	                    <td></td>
-    	                <td></td>
-        	            <td></td>
-    	                <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td><a th:href="@{/new-combined-embryo-order}" class="btn btn-danger custom-width">ORDER EMBRYOS</a></td>
+        	            <td colspan="12"><a th:href="@{/new-combined-embryo-order}" class="btn btn-danger custom-width">ORDER EMBRYOS</a></td>
             	    </tr>
             	</div>
 
 				<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
     	        	<tr>
-                	    <td></td>
-                	    <td></td>
-                    	<td></td>
-	                    <td></td>
-    	                <td></td>
-        	            <td></td>
-    	                <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td><a th:href="@{/new-combined-bird-order}" class="btn btn-danger custom-width">ORDER BIRDS</a></td>
+        	            <td colspan="12"><a th:href="@{/new-combined-bird-order}" class="btn btn-danger custom-width">ORDER BIRDS</a></td>
             	    </tr>
     	        	<tr>
-        	            <td></td>
-                	    <td></td>
-                	    <td></td>
-                    	<td></td>
-	                    <td></td>
-    	                <td></td>
-        	            <td></td>
-    	                <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td><a th:href="@{/new-combined-egg-order}" class="btn btn-danger custom-width">ORDER EGGS</a></td>
+        	            <td colspan="12"><a th:href="@{/new-combined-egg-order}" class="btn btn-danger custom-width">ORDER EGGS</a></td>
             	    </tr>
     	        	<tr>
-        	            <td></td>
-                	    <td></td>
-                	    <td></td>
-                    	<td></td>
-	                    <td></td>
-    	                <td></td>
-        	            <td></td>
-    	                <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td></td>
-        	            <td><a th:href="@{/new-combined-embryo-order}" class="btn btn-danger custom-width">ORDER EMBRYOS</a></td>
+        	            <td colspan="12"><a th:href="@{/new-combined-embryo-order}" class="btn btn-danger custom-width">ORDER EMBRYOS</a></td>
             	    </tr>
 		        </div>
             </tbody>

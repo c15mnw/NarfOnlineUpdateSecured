@@ -109,76 +109,39 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     					"/userslist",
     					"/show-user*",
     					"/edit-user*",
-    					"/delete-user*",
-    					"/show-line*",
-    					"/lines-list",
-    					"/show-strain*",
-    					"/strains-list",
-        				"/new-combined-order",
-        				"/new-selected-order",
-        				"/show-combined-order*",
-    					"/edit-combined-order*",
-    					"/delete-combined-order*",
-    					"/my-orders-list",
-    					"/my-orders-list-new",
-    					"/my-orders-list-pending",
-    					"/my-orders-list-closed",
-    					"/my-orders-list-cancelled",
-    					"/orders-list",
-    					"/orders-list-new",
-    					"/orders-list-pending",
-    					"/orders-list-closed",
-    					"/orders-list-cancelled"
-                		).hasAuthority("SUPER_PRIVILEGE")
+    					"/delete-user*"
+                		).access("hasAuthority('SUPER_PRIVILEGE')")
                 .antMatchers(
     					"/show-line*",
     					"/lines-list",
     					"/show-strain*",
-    					"/strains-list",
-        				"/new-combined-order",
-        				"/new-selected-order",
-        				"/show-combined-order*",
-    					"/edit-combined-order*",
-    					"/delete-combined-order*",
-    					"/my-orders-list",
-    					"/my-orders-list-new",
-    					"/my-orders-list-pending",
-    					"/my-orders-list-closed",
-    					"/my-orders-list-cancelled",
-    					"/orders-list",
-    					"/orders-list-new",
-    					"/orders-list-pending",
-    					"/orders-list-closed",
-    					"/orders-list-cancelled"
-                		).hasAuthority("ADMIN_PRIVILEGE")
+    					"/strains-list"
+    					).access("hasAuthority('SUPER_PRIVILEGE') or hasAuthority('ADMIN_PRIVILEGE')")
                 .antMatchers(
         				"/new-combined-order",
-        				"/new-selected-order",
-        				"/show-combined-order*",
-    					"/edit-combined-order*",
-    					"/delete-combined-order*",
-    					"/my-orders-list",
-    					"/my-orders-list-new",
-    					"/my-orders-list-pending",
-    					"/my-orders-list-closed",
-    					"/my-orders-list-cancelled",
-    					"/orders-list",
-    					"/orders-list-new",
-    					"/orders-list-pending",
-    					"/orders-list-closed",
-    					"/orders-list-cancelled"
-                		).hasAuthority("EDITOR_PRIVILEGE")
+        				"/new-selected-order"
+    					).access("hasAuthority('SUPER_PRIVILEGE') or hasAuthority('ADMIN_PRIVILEGE') or hasAuthority('CUSTOMER_PRIVILEGE')")
                 .antMatchers(
-    					"/new-combined-order",
-    					"/new-selected-order",
-    					"/show-combined-order*",
-    					"/edit-combined-order*",
+    					"/delete-combined-order*"
+    					).access("hasAuthority('SUPER_PRIVILEGE') or hasAuthority('ADMIN_PRIVILEGE')")
+                .antMatchers(
     					"/my-orders-list",
     					"/my-orders-list-new",
     					"/my-orders-list-pending",
     					"/my-orders-list-closed",
     					"/my-orders-list-cancelled"
-                		).hasAuthority("CUSTOMER_PRIVILEGE")
+    					).access("hasAuthority('SUPER_PRIVILEGE') or hasAuthority('ADMIN_PRIVILEGE') or hasAuthority('CUSTOMER_PRIVILEGE')")
+                .antMatchers(
+        				"/show-combined-order*",
+    					"/edit-combined-order*"
+						).access("hasAuthority('SUPER_PRIVILEGE') or hasAuthority('ADMIN_PRIVILEGE') or hasAuthority('EDITOR_PRIVILEGE') or hasAuthority('CUSTOMER_PRIVILEGE')")
+                .antMatchers(
+    					"/orders-list",
+    					"/orders-list-new",
+    					"/orders-list-pending",
+    					"/orders-list-closed",
+    					"/orders-list-cancelled"
+						).access("hasAuthority('SUPER_PRIVILEGE') or hasAuthority('ADMIN_PRIVILEGE') or hasAuthority('EDITOR_PRIVILEGE')")
                 .anyRequest().hasAuthority("PUBLIC_PRIVILEGE")
                 .and()
             .formLogin()

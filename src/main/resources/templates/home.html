@@ -31,9 +31,11 @@
 			<br />		
 			<a th:href="@{/antibody-references-list}" th:text="#{label.pages.users.antibodyreferenceslist.message}">View List of Antibody References</a>
 			<br />		
+			<br />		
 			<a th:href="@{/lines-list}" th:text="#{label.pages.users.lineslist.message}">View List of  Lines</a>
 			<br />		
 			<a th:href="@{/line-references-list}" th:text="#{label.pages.users.linereferenceslist.message}">View List of  Line References</a>
+			<br />		
 			<br />		
 			<a th:href="@{/strains-list}" th:text="#{label.pages.users.strainslist.message}">View List of  Strains</a>
 			<br />		
@@ -43,15 +45,9 @@
 		</div>
 	  
 		<div sec:authorize="hasAuthority('ADMIN_PRIVILEGE')">
-			<a th:href="@{/lineslist}" th:text="#{label.pages.users.lineslist.message}">View List of  Lines</a>
-			<br />		
-			<a th:href="@{/strainslist}" th:text="#{label.pages.users.strainslist.message}">View List of  Strains</a>
 		</div>
 	  
 		<div sec:authorize="hasAuthority('EDITOR_PRIVILEGE')">
-			<a th:href="@{/lineslist}" th:text="#{label.pages.users.lineslist.message}">View List of  Lines</a>
-			<br />		
-			<a th:href="@{/strainslist}" th:text="#{label.pages.users.strainslist.message}">View List of  Strains</a>
 		</div>
 
 		<div sec:authorize="hasAuthority('PUBLIC_PRIVILEGE')">

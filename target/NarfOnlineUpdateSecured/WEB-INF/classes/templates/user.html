@@ -130,13 +130,13 @@ label{padding-left:0 !important}
 
         <div th:if="${edit}">
             <div class="form-actions floatRight">
-                <input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/userslist}">CANCEL</a>
+                <input type="submit" value="EDIT" class="btn btn-primary btn-sm"/> or <a th:href="@{/users-list}">CANCEL</a>
             </div>
         </div>
         
         <div th:unless="${edit}">
             <div class="form-actions floatRight">
-                <input type="submit" value="ADD" class="btn btn-primary btn-sm"/> or <a th:href="@{/userslist}">CANCEL</a>
+                <input type="submit" value="ADD" class="btn btn-primary btn-sm"/> or <a th:href="@{/users-list}">CANCEL</a>
             </div>
         </div>
 

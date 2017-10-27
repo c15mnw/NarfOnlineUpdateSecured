@@ -32,6 +32,11 @@
       "sourceType": "main.java.org.baeldung.persistence.DataSettings",
       "name": "persistence.load",
       "type": "java.lang.String"
+    },
+    {
+      "sourceType": "main.java.org.baeldung.persistence.DataSettings",
+      "name": "persistence.tomcat",
+      "type": "java.lang.String"
     }
   ]
 }
